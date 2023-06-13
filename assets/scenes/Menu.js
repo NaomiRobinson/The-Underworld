@@ -45,7 +45,7 @@ botonAyuda.on("pointerout", () => {
 
 botonAyuda.on("pointerdown", () => {
     this.game.canvas.style.cursor = "default";
-    this.scene.start("ayuda");
+    this.scene.launch("ayuda");
 });
   }
 

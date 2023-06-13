@@ -26,8 +26,8 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 200 },
-      debug: false,
+      gravity: { y: 770 },
+      debug: true,
     },
   },
   // List of scenes to load

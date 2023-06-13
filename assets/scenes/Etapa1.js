@@ -11,7 +11,9 @@ export default class Juego extends Phaser.Scene {
       super("etapa1");
     }
 
-    init() {}
+    init() {
+      this.isGameOver = false;
+    }
 
     preload () {
         this.load.image("fondo", "./assets/images/fondo.png");
@@ -23,7 +25,7 @@ export default class Juego extends Phaser.Scene {
     create () {
         this.add.image(400, 300, "fondo");
 
-        this.jugador = this.physics.add.sprite(150, 300, "jugador").setScale(1.5);
+        this.jugador = this.physics.add.sprite(150, 300, "jugador").setScale(0.8);
 
         this.plataforma = this.physics.add.staticSprite(400, 600, "plataforma").setScale(1);
 
@@ -36,6 +38,14 @@ export default class Juego extends Phaser.Scene {
 
         this.physics.add.collider(this.enemiesGroup, this.plataforma);
 
+        this.physics.add.overlap(
+          this.jugador,
+          this.enemiesGroup,
+          this.tocarEnemigo, 
+          null,
+          this 
+        );
+
         this.time.addEvent({
             delay: ENEMIGOS_DELAY,
             callback: this.addEnemy,
@@ -44,12 +54,17 @@ export default class Juego extends Phaser.Scene {
           });
 
 
+
     }
 
     update () {
 
-        if (this.cursors.up.isDown && this.jugador.body.touching.down) {
-            this.jugador.setVelocityY(-260);
+        if ( (this.cursors.up.isDown || this.cursors.space.isDown ) && this.jugador.body.touching.down) {
+            this.jugador.setVelocityY(-660);
+          }
+
+          if (this.isGameOver) {
+            this.scene.start("fin");
           }
 
     }
@@ -61,15 +76,14 @@ export default class Juego extends Phaser.Scene {
         
         const randomX = Phaser.Math.RND.between(0, 800);
     
-        const enemy = this.physics.add.sprite(970, 400, randomEnemy).setScale(0.7);
+        const enemy = this.physics.add.sprite(970, 400, randomEnemy).setScale(1);
     
-        // add shape to screen
+       
         this.enemiesGroup.add(enemy);
 
-        enemy.value = 1;
-        //enemy.setCircle(40, 0, 0);
+        //enemy.setCircle(80 ,0);
 
-        enemy.setVelocityX(-260);
+        enemy.setVelocityX(-290);
     
         console.log("enemy is added");
       }
@@ -85,4 +99,11 @@ export default class Juego extends Phaser.Scene {
     
     //     console.log("shape is added");
     //   }
+  
+    tocarEnemigo (jugador, enemyGroup) {
+
+      this.isGameOver = true;
+
+
+    }
 }

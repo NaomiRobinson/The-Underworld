@@ -10,10 +10,10 @@ export default class Fin extends Phaser.Scene {
 
   create () {
 
-    this.add.image(400, 300, "fondo");
+    this.add.image(400, 300, "rectangulo").setScale(0.9);
 
-    const botonJugar = this.add.image(305, 400, 'botonPlay').setScale(0.9).setInteractive();
-    const botonMenu = this.add.image(750, 50, 'botonAyuda').setScale(1).setInteractive();
+    const botonJugar = this.add.image(305, 400, 'botonreplay').setScale(0.5).setInteractive();
+    const botonMenu = this.add.image(500, 400,  'botonmenu').setScale(0.5).setInteractive();
 
 
     botonJugar.on("pointerover", () => {
