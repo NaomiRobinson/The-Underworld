@@ -1,4 +1,4 @@
-export default class Etapa1 extends Phaser.Scene {
+export default class Juego extends Phaser.Scene {
     constructor() {
 
       super("etapa1");
@@ -15,11 +15,12 @@ export default class Etapa1 extends Phaser.Scene {
     create () {
         this.add.image(400, 300, "fondo");
 
-        this.jugador= this.physics.add.sprite(150, 500, "jugador");
+        this.jugador = this.physics.add.sprite(150, 300, "jugador");
 
-        this.plataforma = this.physics.add.staticSprite(400, 650, "plataforma");
+        this.plataforma = this.physics.add.staticSprite(400, 600, "plataforma").setScale(1);
 
         this.physics.add.collider(this.jugador, this.plataforma);
+
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -29,7 +30,7 @@ export default class Etapa1 extends Phaser.Scene {
     update () {
 
         if (this.cursors.up.isDown && this.jugador.body.touching.down) {
-            this.player.setVelocityY(100);
+            this.jugador.setVelocityY(-260);
           }
     }
 }

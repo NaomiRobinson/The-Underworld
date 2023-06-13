@@ -4,22 +4,45 @@
       super("menu");
     }
 
-  init() {}  //ver si es necesario   
-
   preload() {
-    this.load.image("fondo", "./assets/images/fondo.png");
-    this.load.image("boton", "./assets/images/boton.png");
+
   }
 
   create() {
 
     this.add.image(400, 300, "fondo");
-    const botonJugar = this.add.image(400, 230, 'boton').setScale(0.5).setInteractive();
+    const botonJugar = this.add.image(400, 300, 'boton').setScale(0.5).setInteractive();
+    const botonAyuda =this.add.image(700, 100, 'boton').setScale(0.30).setInteractive();
 
-    botonJugar.on("pointerdown", () => {
+    //comenzar el juego
+
+    botonJugar.on("pointerover", () => {
+      this.game.canvas.style.cursor = "pointer"
+  });
+
+  botonJugar.on("pointerout", () => {
+      this.game.canvas.style.cursor = "default";
+  });
+  
+  botonJugar.on("pointerdown", () => {
+      this.game.canvas.style.cursor = "default";
       this.scene.start("etapa1");
-    });
+  });
 
+//ir a la escena de ayuda
+
+  botonAyuda.on("pointerover", () => {
+    this.game.canvas.style.cursor = "pointer"
+});
+
+botonAyuda.on("pointerout", () => {
+    this.game.canvas.style.cursor = "default";
+});
+
+botonAyuda.on("pointerdown", () => {
+    this.game.canvas.style.cursor = "default";
+    this.scene.start("ayuda");
+});
   }
 
 

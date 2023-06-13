@@ -8,7 +8,13 @@ export default class Intro extends Phaser.Scene {
 
     preload () {}
 
-    create () {}
+    create () {
+      this.add.image(400, 300, 'boton').setScale(0.5).setInteractive();
+
+      this.cursors = this.input.keyboard.createCursorKeys();
+
+      
+    }
 
     update () {}
 
