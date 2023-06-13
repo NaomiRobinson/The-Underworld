@@ -11,8 +11,12 @@
   create() {
 
     this.add.image(400, 300, "fondo");
-    const botonJugar = this.add.image(400, 300, 'boton').setScale(0.5).setInteractive();
-    const botonAyuda =this.add.image(700, 100, 'boton').setScale(0.30).setInteractive();
+    this.add.image(400,300, "ladrillos");
+    this.add.image(400,300, "pelo");
+    this.add.image(400,300, "titulo");
+
+    const botonJugar = this.add.image(305, 400, 'botonPlay').setScale(0.9).setInteractive();
+    const botonAyuda =this.add.image(750, 50, 'botonAyuda').setScale(1).setInteractive();
 
     //comenzar el juego
 

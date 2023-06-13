@@ -8,7 +8,10 @@ export default class Ayuda extends Phaser.Scene {
 
     preload () {}
 
-    create () {}
+    create () {
+
+      this.add.image(400,300, "fondoAyuda");
+    }
 
     update () {}
 
