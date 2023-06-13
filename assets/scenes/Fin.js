@@ -1,15 +1,22 @@
 export default class Fin extends Phaser.Scene {
-    constructor() {
+  constructor() {
 
       super("fin");
-    }
+  }
 
-    init() {}
+  init() {}
 
-    preload () {}
+  preload () {}
 
-    create () {
-      botonJugar.on("pointerover", () => {
+  create () {
+
+    this.add.image(400, 300, "fondo");
+
+    const botonJugar = this.add.image(305, 400, 'botonPlay').setScale(0.9).setInteractive();
+    const botonMenu = this.add.image(750, 50, 'botonAyuda').setScale(1).setInteractive();
+
+
+    botonJugar.on("pointerover", () => {
         this.game.canvas.style.cursor = "pointer"
     });
   
@@ -24,20 +31,20 @@ export default class Fin extends Phaser.Scene {
   
   //ir al menu principal
   
-    botonAyuda.on("pointerover", () => {
+    botonMenu.on("pointerover", () => {
       this.game.canvas.style.cursor = "pointer"
-  });
+    });
   
-  botonAyuda.on("pointerout", () => {
+    botonMenu.on("pointerout", () => {
       this.game.canvas.style.cursor = "default";
-  });
+    });
   
-  botonAyuda.on("pointerdown", () => {
+    botonMenu.on("pointerdown", () => {
       this.game.canvas.style.cursor = "default";
       this.scene.start("menu");
-  });
-    }
+    });
+  }
 
-    update () {}
+  update () {}
 
 }

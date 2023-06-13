@@ -16,7 +16,7 @@
     this.add.image(400,300, "titulo");
 
     const botonJugar = this.add.image(305, 400, 'botonPlay').setScale(0.9).setInteractive();
-    const botonAyuda =this.add.image(750, 50, 'botonAyuda').setScale(1).setInteractive();
+    const botonAyuda = this.add.image(750, 50, 'botonAyuda').setScale(1).setInteractive();
 
     //comenzar el juego
 

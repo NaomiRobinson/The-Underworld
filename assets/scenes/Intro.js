@@ -1,28 +1,35 @@
 export default class Intro extends Phaser.Scene {
-    constructor() {
+  constructor() {
 
       super("intro");
-    }
+  }
 
-    init() {
-      this.segundaImg= false;
-      this.terceraImg= false;
-    }
+  init() {}
 
-    preload () {}
+  preload () {
 
-    create () {
+    this.load.spritesheet("anim", "./public/images/animacion.png", {
+      frameWidth: 100,
+      frameHeight: 100,
+    });
+  }
 
-      this.add.image(400, 300, "fondo");
+  create () {
 
-      this.cursors = this.input.keyboard.createCursorKeys();
+    this.anims.create({
+      key: "animacion",
+      frames: this.anims.generateFrameNumbers("anim"),
+      frameRate: 10,
+      repeat: -1,
+    });
 
+    this.anims.play("animacion")
       
-    }
+  }
 
-    update () {
-      
+  update () {
 
-    }
+
+  }
 
 }

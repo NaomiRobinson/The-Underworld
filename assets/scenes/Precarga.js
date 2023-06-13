@@ -25,6 +25,6 @@ export default class Precarga extends Phaser.Scene {
   //cargar las animaciones en create
   create() {
     
-    this.scene.start("menu");
+    this.scene.start("fin");
   }
 }

@@ -61,7 +61,7 @@ export default class Juego extends Phaser.Scene {
         
         const randomX = Phaser.Math.RND.between(0, 800);
     
-        const enemy = this.physics.add.sprite(900, 400, randomEnemy).setScale(0.7);
+        const enemy = this.physics.add.sprite(970, 400, randomEnemy).setScale(0.7);
     
         // add shape to screen
         this.enemiesGroup.add(enemy);
