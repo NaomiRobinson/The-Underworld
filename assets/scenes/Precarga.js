@@ -20,6 +20,7 @@ export default class Precarga extends Phaser.Scene {
     this.load.image("ojo", "./assets/images/ojo.png");
     this.load.image("fantasma", "./assets/images/fantasma.png")
     this.load.image("fuego", "./assets/imagess/fuego.png");
+    this.load.image("moneda", "./assets/images/moneda.png");
 
     this.load.image("botonreplay", "./assets/images/replay.png");
     this.load.image("botonmenu", "./assets/images/menu.png");
@@ -29,6 +30,6 @@ export default class Precarga extends Phaser.Scene {
   //cargar las animaciones en create
   create() {
     
-    this.scene.start("etapa1");
+    this.scene.start("menu");
   }
 }
