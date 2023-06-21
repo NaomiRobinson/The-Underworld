@@ -25,6 +25,8 @@ export default class Precarga extends Phaser.Scene {
     this.load.image("botonreplay", "./assets/images/replay.png");
     this.load.image("botonmenu", "./assets/images/menu.png");
 
+    this.load.image("vidaExtra", "./assets/images/heart.png");
+
   }
 
   //cargar las animaciones en create
