@@ -7,6 +7,10 @@ import {
     OBJETOS,
     OBJETOS_DELAY,
     VIDAEXTRA,
+    GEMA,
+    COLLAR,
+    ESPEJO,
+    CALIZ,
 } from "../../utils.js";
 
 export default class Juego extends Phaser.Scene {
@@ -17,7 +21,13 @@ export default class Juego extends Phaser.Scene {
 
   init() {
     this.objetoRecolectado = {  
-      [MONEDA]: { count: 0, score: 10},
+      [MONEDA]: { prob: 0.8, score: 50},
+      [GEMA]: { prob: 0.6, score: 100},
+      [COLLAR]: { prob: 0.5, score: 150},
+      [ESPEJO]: { prob: 0.3, score: 200},
+      [CALIZ]: { prob: 0.1, score: 500},
+
+      [VIDAEXTRA]: { prob: 0.3, score: 0},
     };
 
 
@@ -26,10 +36,12 @@ export default class Juego extends Phaser.Scene {
     
   this.vidaExtra = false;
 
-  this.puntaje = false;
+  this.puntaje = 0;
 
-  this.timer=0;
+  this.timer= 0;
   this.tiempoNuevo = 0;
+
+  this.dificultad = 1;
   }
 
   preload () {
@@ -58,7 +70,7 @@ export default class Juego extends Phaser.Scene {
     this.physics.add.collider(this.grupoObjetos, this.plataforma);
     this.physics.add.collider(this.grupoEnemigos, this.plataforma);
 
-    this.jugador.setCollideWorldBounds(true);
+
 
     this.physics.add.overlap(
       this.jugador,
@@ -77,13 +89,6 @@ export default class Juego extends Phaser.Scene {
     );
 
     this.time.addEvent({
-      delay: OBJETOS_DELAY,
-      callback: this.agregarObjeto,
-      callbackScope: this,
-      loop: true,
-    });
-
-    this.time.addEvent({
       delay: ENEMIGOS_DELAY,
       callback: this.agregarEnemigo,
       callbackScope: this,
@@ -91,11 +96,23 @@ export default class Juego extends Phaser.Scene {
     });
 
     this.time.addEvent({
+      delay: OBJETOS_DELAY,
+      callback: this.agregarObjeto,
+      callbackScope: this,
+      loop: true,
+    });
+
+
+    this.time.addEvent({
       delay: 1000,
       callback: this.actualizarTimer,
       callbackScope: this,
       loop: true,
     });
+
+    this.aparicionEnemigo = Phaser.Math.RND.between(5000 / this.dificultad, 8000 / this.dificultad); 
+    this.aparicionEnemigo = this.time.now + this.aparicionEnemigo;
+
 
           /*this.cantidadMonedasTexto = this.add.text(
             15,
@@ -120,6 +137,7 @@ export default class Juego extends Phaser.Scene {
 
 
 
+
   }
 
   update () {
@@ -136,33 +154,35 @@ export default class Juego extends Phaser.Scene {
 
     const tiempoActual = this.time.now;
 
-    if (tiempoActual - this.tiempoNuevo >= 5000) {
 
-      this.grupoEnemigos.getChildren().forEach(enemigo => {
-        enemigo.setVelocityX(enemigo.body.velocity.x - 10);
-    });
-  
-
-      this.tiempoNuevo = tiempoActual;
-    }
+  if (tiempoActual >= this.aparicionEnemigo) {
+  this.agregarEnemigo();
+  console.log("se llamo agregarenemigo");
+  this.aparicionEnemigo = Phaser.Math.RND.between(2000, 5000); 
+  this.aparicionEnemigo = tiempoActual + this.aparicionEnemigo; 
+} 
 
   }
 
 
   agregarEnemigo() {
-    
-    const enemigoRandom = Phaser.Math.RND.pick(ENEMIGOS)
-    
+    const enemigoRandom = Phaser.Math.RND.pick(ENEMIGOS);
     const enemigo = this.physics.add.sprite(970, 400, enemigoRandom).setScale(1);
     
-    
     this.grupoEnemigos.add(enemigo);
-
-    //enemigo.setCircle(80 ,0);
-
-    enemigo.setVelocityX(-500);
     
+    enemigo.setVelocityX(-500);
+    this.aumentarDificultad();
     console.log("enemy is added");
+  
+    this.aparicionEnemigo = Phaser.Math.RND.between(
+      ENEMIGOS_DELAY.MIN / this.dificultad,
+      ENEMIGOS_DELAY.MAX / this.dificultad,
+    );
+    this.aparicionEnemigo = this.time.now + this.aparicionEnemigo;
+
+    const retrasoAparicion = 1000; 
+    this.aparicionEnemigo += retrasoAparicion;
   }
 
     // agregarEnemigo() {
@@ -187,6 +207,22 @@ export default class Juego extends Phaser.Scene {
       }
   
       const randomY = Phaser.Math.RND.between(20, 450);
+
+      const probTotal = OBJETOS.reduce((total, objeto) => total + objeto.probabilidad, 0);
+      const numRandom = Phaser.Math.RND.frac() * probTotal;  //número aleatorio entre 0 y el peso total utilizando 
+
+      
+      let acum = 0;
+
+      for (const objeto of OBJETOS) {
+        acum += objeto.probabilidad;
+        if (numRandom <= acum) {
+          objetoRandom = objeto.nombre;
+          break;
+        }
+      }
+    
+    
   
       const objeto = this.physics.add.sprite(700, randomY, objetoRandom);
   
@@ -203,16 +239,16 @@ export default class Juego extends Phaser.Scene {
       if (objeto.texture.key === VIDAEXTRA && !this.vidaExtra) {
         console.log("Objeto recolectado (vida extra)");
         this.vidaExtra = true; // El jugador ha recolectado una vida extra
-      } else {
-        console.log("Objeto recolectado");
       }
 
-      if (objeto.texture.key === MONEDA) {
-        this.puntaje += 10;
+      const descObjeto = this.objetoRecolectado[objeto.texture.key];
+      if (descObjeto) {
+        console.log("Objeto recolectado");
+        this.puntaje += descObjeto.score;
+        this.textoPuntaje.setText("Puntaje: " + this.puntaje);
+      }
 
-      this.textoPuntaje.setText("Puntaje: " + this.puntaje);
     }
-  }
 
     restarVida(jugador, enemigo) {
       if (this.vidaExtra) {
@@ -227,7 +263,12 @@ export default class Juego extends Phaser.Scene {
   
     actualizarTimer() {
       this.timer++;
-      this.textoTiempo.setText(this.timer);
+      this.textoTiempo.setText(this.timer.toString());
+    }
+
+    aumentarDificultad() {
+    this.dificultad += 0.1; 
+    console.log("dificultad aumentada");
     }
 
   }
