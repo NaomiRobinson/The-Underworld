@@ -38,7 +38,7 @@ export default class Juego extends Phaser.Scene {
 
   this.puntaje = 0;
 
-  this.timer= 0;
+  this.tiempo= 0;
   this.tiempoNuevo = 0;
 
   this.dificultad = 1;
@@ -105,7 +105,7 @@ export default class Juego extends Phaser.Scene {
 
     this.time.addEvent({
       delay: 1000,
-      callback: this.actualizarTimer,
+      callback: this.actualizarTiempo,
       callbackScope: this,
       loop: true,
     });
@@ -114,22 +114,13 @@ export default class Juego extends Phaser.Scene {
     this.aparicionEnemigo = this.time.now + this.aparicionEnemigo;
 
 
-          /*this.cantidadMonedasTexto = this.add.text(
-            15,
-            15,   
-              "Monedas recolectadas: " +
-              this.cantidadObjetos.toString(),
-            { fontSize: "15px", fill: "#FFFFFF" }
-          );*/
-
-
     this.textoPuntaje = this.add.text(16, 40, "Puntaje:" + this.puntaje, {
       fontSize: "20px",
       fill: "#FFFFFF",
       fontStyle: "bold",
     });
 
-    this.textoTiempo = this.add.text(16,60, this.timer, {
+    this.textoTiempo = this.add.text(16,60, this.tiempo, {
       fontSize: "20px",
       fill: "#E6DE35",
       fontStyle: "bold",
@@ -160,7 +151,12 @@ export default class Juego extends Phaser.Scene {
   console.log("se llamo agregarenemigo");
   this.aparicionEnemigo = Phaser.Math.RND.between(2000, 5000); 
   this.aparicionEnemigo = tiempoActual + this.aparicionEnemigo; 
-} 
+  }
+
+  if (this.tiempo >= 20) {
+    this.scene.start("etapa2", { tiempo: this.tiempo, puntaje: this.puntaje });
+  }
+
 
   }
 
@@ -185,18 +181,6 @@ export default class Juego extends Phaser.Scene {
     this.aparicionEnemigo += retrasoAparicion;
   }
 
-    // agregarEnemigo() {
-    //     const enemigoRandom = Phaser.Math.RND.pick(ENEMIGOS);
-    
-    //     const enemigo = this.physics.add.sprite(200, 0, enemigoRandom);
-
-    //     enemigo.setVelocityX(-200)
-    
-    //     this.grupoEnemigos.add(enemigo);
-    
-    //     console.log("shape is added");
-    //   }
-  
     agregarObjeto() {
       let objetoRandom = Phaser.Math.RND.pick(OBJETOS);
   
@@ -261,9 +245,9 @@ export default class Juego extends Phaser.Scene {
       }
     }
   
-    actualizarTimer() {
-      this.timer++;
-      this.textoTiempo.setText(this.timer.toString());
+    actualizarTiempo() {
+      this.tiempo++;
+      this.textoTiempo.setText(this.tiempo.toString());
     }
 
     aumentarDificultad() {
