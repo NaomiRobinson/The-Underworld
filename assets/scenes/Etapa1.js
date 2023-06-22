@@ -30,18 +30,15 @@ export default class Juego extends Phaser.Scene {
       [VIDAEXTRA]: { prob: 0.3, score: 0},
     };
 
-
-
   this.isGameOver = false;
-    
+  
   this.vidaExtra = false;
 
   this.puntaje = 0;
-
   this.tiempo= 0;
-  this.tiempoNuevo = 0;
 
   this.dificultad = 1;
+
   }
 
   preload () {
@@ -110,9 +107,6 @@ export default class Juego extends Phaser.Scene {
       loop: true,
     });
 
-    this.aparicionEnemigo = Phaser.Math.RND.between(5000 / this.dificultad, 8000 / this.dificultad); 
-    this.aparicionEnemigo = this.time.now + this.aparicionEnemigo;
-
 
     this.textoPuntaje = this.add.text(16, 40, "Puntaje:" + this.puntaje, {
       fontSize: "20px",
@@ -145,16 +139,9 @@ export default class Juego extends Phaser.Scene {
 
     const tiempoActual = this.time.now;
 
-
-  if (tiempoActual >= this.aparicionEnemigo) {
-  this.agregarEnemigo();
-  console.log("se llamo agregarenemigo");
-  this.aparicionEnemigo = Phaser.Math.RND.between(2000, 5000); 
-  this.aparicionEnemigo = tiempoActual + this.aparicionEnemigo; 
-  }
-
   if (this.tiempo >= 20) {
-    this.scene.start("etapa2", { tiempo: this.tiempo, puntaje: this.puntaje });
+    this.vidaExtra = this.scene.get('etapa1').data.get('vidaExtra');
+    this.scene.switch("etapa2", { tiempo: this.tiempo, puntaje: this.puntaje, dificultad: this.dificultad});
   }
 
 
@@ -171,14 +158,13 @@ export default class Juego extends Phaser.Scene {
     this.aumentarDificultad();
     console.log("enemy is added");
   
-    this.aparicionEnemigo = Phaser.Math.RND.between(
-      ENEMIGOS_DELAY.MIN / this.dificultad,
-      ENEMIGOS_DELAY.MAX / this.dificultad,
-    );
-    this.aparicionEnemigo = this.time.now + this.aparicionEnemigo;
+  const retrasoAparicion = 1000;
 
-    const retrasoAparicion = 1000; 
-    this.aparicionEnemigo += retrasoAparicion;
+  this.aparicionEnemigo = Phaser.Math.RND.between(
+    ENEMIGOS_DELAY.MIN / this.dificultad,
+    ENEMIGOS_DELAY.MAX / this.dificultad
+  );
+  this.aparicionEnemigo = this.time.now + this.aparicionEnemigo + retrasoAparicion;
   }
 
     agregarObjeto() {
