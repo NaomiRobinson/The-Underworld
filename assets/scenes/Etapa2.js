@@ -27,12 +27,17 @@ export default class Juego extends Phaser.Scene {
       [CALIZ]: { prob: 0.1, score: 500 },
       [VIDAEXTRA]: { prob: 0.3, score: 0 },
     };
+
+    this.tiempoPantalla = 0;
+  
+    this.vidaExtra = data.vidaExtra || false;
+    this.dificultad = data.dificultad || 1;
     this.tiempo = data.tiempo || 0;
     this.puntaje = data.puntaje || 0;
-
+  
     this.isGameOver = false;
-    this.vidaExtra = false;
   }
+  
 
   preload() {
     this.load.image(FUEGO, "./assets/images/fuego.png");
@@ -110,6 +115,19 @@ export default class Juego extends Phaser.Scene {
       loop: true,
     });
 
+    this.time.addEvent({
+      delay: 1000,
+      callback: this.actualizarTiempoPantalla,
+      callbackScope: this,
+      loop: true,
+    });
+
+    this.textoTiempoPantalla = this.add.text(26,100, this.tiempoPantalla, {
+      fontSize: "20px",
+      fill: "#E6DE35",
+      fontStyle: "bold",
+    });
+
   }
 
   update() {
@@ -128,9 +146,14 @@ export default class Juego extends Phaser.Scene {
       this.jugador.setVelocityX(0);
     }
 
+    if (this.tiempoPantalla >= 20) {
+      this.scene.start("etapa1", { tiempo: this.tiempo, puntaje: this.puntaje, dificultad: this.dificultad, vidaExtra: this.vidaExtra });
+    }
+
     
     if (this.isGameOver) {
       this.scene.start("fin");
+      this.reiniciarJuego();
     }
 
   }
@@ -232,4 +255,20 @@ export default class Juego extends Phaser.Scene {
     this.tiempo++;
     this.textoTiempo.setText(this.tiempo.toString());
   }
+
+  actualizarTiempoPantalla() {
+    this.tiempoPantalla++;
+    this.textoTiempoPantalla.setText(this.tiempoPantalla.toString());
+  }
+
+  reiniciarJuego() {
+    this.ultimoEnemigo = 0;
+    this.isGameOver = false;
+    this.tiempoPantalla = 0;
+    this.vidaExtra = false;
+    this.dificultad = 1;
+    this.tiempo = 0;
+    this.puntaje = 0;
+  }
+
 }

@@ -11,7 +11,7 @@ import {
     COLLAR,
     ESPEJO,
     CALIZ,
-} from "../../utils.js";
+} from "../../utils.js";  
 
 export default class Juego extends Phaser.Scene {
   constructor() {
@@ -19,7 +19,11 @@ export default class Juego extends Phaser.Scene {
     super("etapa1");
   }
 
-  init() {
+  init(data) {
+    
+    this.ultimoEnemigo = 0;
+    this.isGameOver = false;
+    this.tiempoPantalla = 0;
     this.objetoRecolectado = {  
       [MONEDA]: { prob: 0.8, score: 50},
       [GEMA]: { prob: 0.6, score: 100},
@@ -30,17 +34,14 @@ export default class Juego extends Phaser.Scene {
       [VIDAEXTRA]: { prob: 0.3, score: 0},
     };
 
-  this.isGameOver = false;
-  
-  this.vidaExtra = false;
-
-  this.puntaje = 0;
-  this.tiempo= 0;
-
-  this.ultimoEnemigo = 0;
-
-  this.dificultad = 1;
-
+    if (data && this.scene.key !== "etapa2") {
+    this.vidaExtra = data.vidaExtra || false;
+    this.dificultad = data.dificultad || 1;
+    this.tiempo = data.tiempo || 0;
+    this.puntaje = data.puntaje || 0;
+  } else {
+    this.reiniciarJuego();
+    }
   }
 
   preload () {
@@ -109,6 +110,13 @@ export default class Juego extends Phaser.Scene {
       loop: true,
     });
 
+    this.time.addEvent({
+      delay: 1000,
+      callback: this.actualizarTiempoPantalla,
+      callbackScope: this,
+      loop: true,
+    });
+
 
     this.textoPuntaje = this.add.text(16, 40, "Puntaje:" + this.puntaje, {
       fontSize: "20px",
@@ -116,7 +124,13 @@ export default class Juego extends Phaser.Scene {
       fontStyle: "bold",
     });
 
-    this.textoTiempo = this.add.text(16,60, this.tiempo, {
+    this.textoTiempo = this.add.text(26,60, this.tiempo, {
+      fontSize: "20px",
+      fill: "#E6DE35",
+      fontStyle: "bold",
+    });
+
+    this.textoTiempoPantalla = this.add.text(26,100, this.tiempoPantalla, {
       fontSize: "20px",
       fill: "#E6DE35",
       fontStyle: "bold",
@@ -137,12 +151,15 @@ export default class Juego extends Phaser.Scene {
 
     if (this.isGameOver) {
       this.scene.start("fin");
+      this.reiniciarJuego();
+
     }
 
-  if (this.tiempo >= 20) {
-    this.vidaExtra = this.scene.get('etapa1').data.get('vidaExtra');
-    this.scene.switch("etapa2", { tiempo: this.tiempo, puntaje: this.puntaje, dificultad: this.dificultad});
-  }
+    if (this.tiempoPantalla >= 20) {
+      this.scene.start("etapa2", { tiempo: this.tiempo, puntaje: this.puntaje, dificultad: this.dificultad, vidaExtra: this.vidaExtra });
+    }
+
+
 
 
   }
@@ -254,9 +271,25 @@ export default class Juego extends Phaser.Scene {
       this.textoTiempo.setText(this.tiempo.toString());
     }
 
+    actualizarTiempoPantalla() {
+      this.tiempoPantalla++;
+      this.textoTiempoPantalla.setText(this.tiempoPantalla.toString());
+    }
+
     aumentarDificultad() {
     this.dificultad += 0.05; 
     console.log("dificultad aumentada");
     }
 
+    reiniciarJuego() {
+      console.log("reinicio juego");
+
+      this.ultimoEnemigo = 0;
+      this.isGameOver = false;
+      this.tiempoPantalla = 0;
+      this.vidaExtra = false;
+      this.dificultad = 1;
+      this.tiempo = 0;
+      this.puntaje = 0;
+    }
   }

@@ -25,8 +25,8 @@ export default class Fin extends Phaser.Scene {
     });
     
     botonJugar.on("pointerdown", () => {
-        this.game.canvas.style.cursor = "default";
-        this.scene.start("etapa1");
+      this.game.canvas.style.cursor = "default";
+      this.scene.start("etapa1");
     });
   
   //ir al menu principal
