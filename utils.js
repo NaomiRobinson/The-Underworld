@@ -5,8 +5,9 @@ const ENEMIGOS = [FANTASMA, OJO];
 
 const ENEMIGOS_DELAY = {
   MIN: 1000,
-  MAX: 2000,
+  MAX: 5000,
 };
+
 
 const FUEGO = "fuego";
 const VIDAEXTRA = "vidaExtra";

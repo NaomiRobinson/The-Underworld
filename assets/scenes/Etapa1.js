@@ -23,7 +23,7 @@ export default class Juego extends Phaser.Scene {
     this.objetoRecolectado = {  
       [MONEDA]: { prob: 0.8, score: 50},
       [GEMA]: { prob: 0.6, score: 100},
-      [COLLAR]: { prob: 0.5, score: 150},
+      [COLLAR]: { prob: 0.5, score: 150}, 
       [ESPEJO]: { prob: 0.3, score: 200},
       [CALIZ]: { prob: 0.1, score: 500},
 
@@ -36,6 +36,8 @@ export default class Juego extends Phaser.Scene {
 
   this.puntaje = 0;
   this.tiempo= 0;
+
+  this.ultimoEnemigo = 0;
 
   this.dificultad = 1;
 
@@ -86,7 +88,7 @@ export default class Juego extends Phaser.Scene {
     );
 
     this.time.addEvent({
-      delay: ENEMIGOS_DELAY,
+      delay: Phaser.Math.RND.between(ENEMIGOS_DELAY.MIN, ENEMIGOS_DELAY.MAX),
       callback: this.agregarEnemigo,
       callbackScope: this,
       loop: true,
@@ -137,8 +139,6 @@ export default class Juego extends Phaser.Scene {
       this.scene.start("fin");
     }
 
-    const tiempoActual = this.time.now;
-
   if (this.tiempo >= 20) {
     this.vidaExtra = this.scene.get('etapa1').data.get('vidaExtra');
     this.scene.switch("etapa2", { tiempo: this.tiempo, puntaje: this.puntaje, dificultad: this.dificultad});
@@ -149,22 +149,42 @@ export default class Juego extends Phaser.Scene {
 
 
   agregarEnemigo() {
-    const enemigoRandom = Phaser.Math.RND.pick(ENEMIGOS);
-    const enemigo = this.physics.add.sprite(970, 400, enemigoRandom).setScale(1);
-    
-    this.grupoEnemigos.add(enemigo);
-    
-    enemigo.setVelocityX(-500);
-    this.aumentarDificultad();
-    console.log("enemy is added");
-  
-  const retrasoAparicion = 1000;
 
-  this.aparicionEnemigo = Phaser.Math.RND.between(
-    ENEMIGOS_DELAY.MIN / this.dificultad,
-    ENEMIGOS_DELAY.MAX / this.dificultad
-  );
-  this.aparicionEnemigo = this.time.now + this.aparicionEnemigo + retrasoAparicion;
+  const aparicionAleatoria = Phaser.Math.RND.between(ENEMIGOS_DELAY.MIN, ENEMIGOS_DELAY.MAX);
+
+  const enemigoRandom = Phaser.Math.RND.pick(ENEMIGOS);
+  const enemigo = this.physics.add.sprite(970, 400, enemigoRandom).setScale(1);
+
+  const distancia = 500;
+
+  const tiempoAparicion = this.ultimoEnemigo + Phaser.Math.RND.between(distancia, distancia * 2);
+
+  this.aumentarDificultad();
+
+
+  this.time.addEvent({
+    delay: tiempoAparicion,
+    callback: () => {
+      enemigo.setPosition(970, 400);
+      enemigo.setVelocityX(-500* this.dificultad);
+    },
+    callbackScope: this
+  });
+  
+  this.grupoEnemigos.add(enemigo);
+
+  this.ultimoEnemigo = tiempoAparicion;
+
+  this.time.addEvent({
+    delay: aparicionAleatoria,
+    callback: this.agregarEnemigo,
+    callbackScope: this,
+    loop: false
+  });
+
+  console.log("enemy is added");
+
+
   }
 
     agregarObjeto() {
@@ -191,8 +211,6 @@ export default class Juego extends Phaser.Scene {
           break;
         }
       }
-    
-    
   
       const objeto = this.physics.add.sprite(700, randomY, objetoRandom);
   
@@ -237,7 +255,7 @@ export default class Juego extends Phaser.Scene {
     }
 
     aumentarDificultad() {
-    this.dificultad += 0.1; 
+    this.dificultad += 0.05; 
     console.log("dificultad aumentada");
     }
 
