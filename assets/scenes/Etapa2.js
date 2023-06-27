@@ -41,6 +41,9 @@ export default class Juego extends Phaser.Scene {
       this.tiempo = data.tiempo || this.tiempo;
       this.puntaje = data.puntaje || this.puntaje;
     }
+
+    this.recordPuntaje = localStorage.getItem('recordPuntaje') || 0;
+
   }
 
   
@@ -246,6 +249,11 @@ export default class Juego extends Phaser.Scene {
       this.textoPuntaje.setText("Puntaje: " + this.puntaje);
     } 
 
+    const recordPuntaje = localStorage.getItem('recordPuntaje') || 0;
+    if (this.puntaje > recordPuntaje) {
+    localStorage.setItem('recordPuntaje', this.puntaje);
+    }
+
   }
 
   restarVida(jugador, enemigo) {
@@ -256,9 +264,8 @@ export default class Juego extends Phaser.Scene {
       enemigo.disableBody(true, true);
       console.log("Vida extra usada. Sigue jugando.");
     } else {
-      this.reiniciarDatos();
       console.log("Game Over");
-      this.scene.start("fin");
+      this.scene.start("fin", {puntaje: this.puntaje, tiempo: this.tiempo });
     }
   }
 

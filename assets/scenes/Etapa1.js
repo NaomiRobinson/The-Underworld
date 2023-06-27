@@ -43,9 +43,10 @@ export default class Juego extends Phaser.Scene {
         this.dificultad = data.dificultad || this.dificultad;
         this.tiempo = data.tiempo || this.tiempo;
         this.puntaje = data.puntaje || this.puntaje;
-      } else {
-        this.reiniciarDatos(); 
-      }
+      } 
+
+      this.recordPuntaje = localStorage.getItem('recordPuntaje') || 0;
+
     }
 
   
@@ -79,7 +80,8 @@ export default class Juego extends Phaser.Scene {
     this.piedras1.setTileScale(1); 
     this.piedras1.setTilePosition(400, 600);
 
-    this.jugador = this.physics.add.sprite(300, 300, "jugador").setScale(1);
+    this.jugador = this.physics.add.sprite(300, 300, "personaje").setScale(2);
+
 
     this.jugador.play("correr");  
 
@@ -282,6 +284,11 @@ export default class Juego extends Phaser.Scene {
         this.textoPuntaje.setText("Puntaje: " + this.puntaje);
       }
 
+    const recordPuntaje = localStorage.getItem('recordPuntaje') || 0;
+    if (this.puntaje > recordPuntaje) {
+    localStorage.setItem('recordPuntaje', this.puntaje);
+    }
+
     }
 
     restarVida(jugador, enemigo) {
@@ -294,13 +301,12 @@ export default class Juego extends Phaser.Scene {
         console.log("Vida extra usada. Sigue jugando.");
       } else {
         // Perder el juego
-        this.reiniciarDatos();
         console.log("Game Over");
     
         // Reiniciar los datos persistentes en ambas escenas
         // this.scene.start("etapa1");
         // this.scene.start("etapa2");
-        this.scene.start("fin");
+        this.scene.start("fin", {puntaje: this.puntaje, tiempo: this.tiempo });
         
       }
     }
@@ -322,16 +328,12 @@ export default class Juego extends Phaser.Scene {
 
     reiniciarDatos() {
       console.log("Reiniciar datos");
-
-      this.vidaExtra = false;
-      this.dificultad = 1;
-      this.tiempo = 0;
-      this.puntaje = 0;
-      this.tiempoPantalla = 0;
-      this.ultimoEnemigo = 0;
-      if (this.eventoEnemigos) {
-        this.eventoEnemigos.remove();
-      }
+    this.vidaExtra = false;
+    this.dificultad = 1;
+    this.tiempo = 0;
+    this.puntaje = 0;
+    this.tiempoPantalla = 0;
+    this.ultimoEnemigo = 0;
     }
   }
   

@@ -40,6 +40,8 @@ export default class Juego extends Phaser.Scene {
       this.puntaje = 0;
       this.tiempoPantalla = 0;
       this.ultimoEnemigo = 0;
+
+      this.recordPuntaje = localStorage.getItem('recordPuntaje') || 0;
     
       
     }
@@ -277,6 +279,11 @@ export default class Juego extends Phaser.Scene {
         this.textoPuntaje.setText("Puntaje: " + this.puntaje);
       }
 
+      const recordPuntaje = localStorage.getItem('recordPuntaje') || 0;
+    if (this.puntaje > recordPuntaje) {
+    localStorage.setItem('recordPuntaje', this.puntaje);
+    }
+
     }
 
     restarVida(jugador, enemigo) {
@@ -287,9 +294,8 @@ export default class Juego extends Phaser.Scene {
         enemigo.disableBody(true, true);
         console.log("Vida extra usada. Sigue jugando.");
       } else {
-        this.reiniciarDatos();
         console.log("Game Over");
-        this.scene.start("fin");
+        this.scene.start("fin", {puntaje: this.puntaje, tiempo: this.tiempo });
         
       }
     }
@@ -310,15 +316,15 @@ export default class Juego extends Phaser.Scene {
     }
 
     reiniciarDatos() {
-      console.log("Reiniciar datos persistentes");
-
-
-      this.vidaExtra = false;
-      this.dificultad = 1;
-      this.tiempo = 0;
-      this.puntaje = 0;
-      this.tiempoPantalla = 0;
+      console.log("Reiniciar datos");
+    this.vidaExtra = false;
+    this.dificultad = 1;
+    this.tiempo = 0;
+    this.puntaje = 0;
+    this.tiempoPantalla = 0;
     this.ultimoEnemigo = 0;
     }
+
+    
   }
   
