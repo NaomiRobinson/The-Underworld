@@ -5,8 +5,9 @@ import Etapa1 from "./assets/scenes/Etapa1.js";
 import Etapa2 from "./assets/scenes/Etapa2.js";
 import Fin from "./assets/scenes/Fin.js"; 
 import Precarga from "./assets/scenes/Precarga.js";
+import Prueba from "./assets/scenes/prueba.js";
 
-// Create a new Phaser config object
+
 const config = {
   type: Phaser.AUTO,
   width: 800,
@@ -31,11 +32,9 @@ const config = {
       debug: true,
     },
   },
-  // List of scenes to load
-  // Only the first scene will be shown
-  // Remember to import the scene before adding it to the list
-  scene: [Precarga,Menu,Ayuda,Intro,Etapa1,Etapa2,Fin],
+ 
+  scene: [Precarga,Menu,Ayuda,Intro,,Prueba,Etapa1,Etapa2,Fin],
 };
 
-// Create a new Phaser game instance
+
 window.game = new Phaser.Game(config);

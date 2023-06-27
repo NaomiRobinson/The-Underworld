@@ -10,6 +10,13 @@ export default class Fin extends Phaser.Scene {
 
   create () {
 
+    const etapa1Scene = this.scene.get("etapa1");
+    const etapa2Scene = this.scene.get("etapa2");
+
+    etapa1Scene.reiniciarDatos();
+    etapa2Scene.reiniciarDatos();
+
+
     this.add.image(400, 300, "rectangulo").setScale(0.9);
 
     const botonJugar = this.add.image(305, 400, 'botonreplay').setScale(0.5).setInteractive();
@@ -26,10 +33,12 @@ export default class Fin extends Phaser.Scene {
     
     botonJugar.on("pointerdown", () => {
       this.game.canvas.style.cursor = "default";
-      this.scene.start("etapa1");
+      etapa1Scene.reiniciarDatos();
+      etapa2Scene.reiniciarDatos();
+      this.scene.start("prueba");
     });
   
-  //ir al menu principal
+
   
     botonMenu.on("pointerover", () => {
       this.game.canvas.style.cursor = "pointer"
@@ -41,10 +50,23 @@ export default class Fin extends Phaser.Scene {
   
     botonMenu.on("pointerdown", () => {
       this.game.canvas.style.cursor = "default";
+      etapa1Scene.reiniciarDatos();
+      etapa2Scene.reiniciarDatos();
       this.scene.start("menu");
     });
   }
 
-  update () {}
+  update() {}
+
+  reiniciarDatos() {
+    console.log("Reiniciar datos persistentes");
+
+    const etapa1Scene = this.scene.get("etapa1");
+    const etapa2Scene = this.scene.get("etapa2");
+
+    etapa1Scene.reiniciarDatos();
+    etapa2Scene.reiniciarDatos();
+  }
+
 
 }

@@ -1,7 +1,7 @@
 import {
     ENEMIGOS,
     OJO,
-    FANTASMA, 
+    FANTASMA,
     ENEMIGOS_DELAY,
     MONEDA,
     OBJETOS,
@@ -16,36 +16,22 @@ import {
 export default class Juego extends Phaser.Scene {
   
     constructor() {
-      super("etapa1");
+      super("prueba");
   
-
+      
     }
 
   
-    init(data) {
-
-      this.objetoRecolectado = {
-        [MONEDA]: { prob: 0.8, score: 50 },
-        [GEMA]: { prob: 0.6, score: 100 },
-        [COLLAR]: { prob: 0.5, score: 150 },
-        [ESPEJO]: { prob: 0.3, score: 200 },
-        [CALIZ]: { prob: 0.1, score: 500 },
-        [VIDAEXTRA]: { prob: 0.3, score: 0 },
-      };
-
-      
-      this.ultimoEnemigo = 0;
+    init() {
       this.tiempoPantalla = 0;
-      this.dificultad = 1; 
+      this.vidaExtra = false;
+      this.dificultad = 1;
+      this.tiempo = 0;
+      this.puntaje = 0;
+      this.tiempoPantalla = 0;
+      this.ultimoEnemigo = 0;
     
-      if (data && this.scene.key !== "etapa2") {
-        this.vidaExtra = data.vidaExtra || this.vidaExtra;
-        this.dificultad = data.dificultad || this.dificultad;
-        this.tiempo = data.tiempo || this.tiempo;
-        this.puntaje = data.puntaje || this.puntaje;
-      } else {
-        this.reiniciarDatos(); 
-      }
+      
     }
 
   
@@ -74,7 +60,14 @@ export default class Juego extends Phaser.Scene {
 
     this.grupoObjetos = this.physics.add.group();
 
-    
+    this.objetoRecolectado = {
+      [MONEDA]: { prob: 0.8, score: 50 },
+      [GEMA]: { prob: 0.6, score: 100 },
+      [COLLAR]: { prob: 0.5, score: 150 },
+      [ESPEJO]: { prob: 0.3, score: 200 },
+      [CALIZ]: { prob: 0.1, score: 500 },
+      [VIDAEXTRA]: { prob: 0.3, score: 0 },
+    };
 
     this.physics.add.collider(this.grupoObjetos, this.plataforma);
     this.physics.add.collider(this.grupoEnemigos, this.plataforma);
@@ -248,7 +241,7 @@ export default class Juego extends Phaser.Scene {
   
       if (objeto.texture.key === VIDAEXTRA && !this.vidaExtra) {
         console.log("Objeto recolectado (vida extra)");
-        this.vidaExtra = true; // El jugador ha recolectado una vida extra
+        this.vidaExtra = true; 
         
       }
 
@@ -265,18 +258,12 @@ export default class Juego extends Phaser.Scene {
       
     
       if (this.vidaExtra) {
-        // Utilizar una vida extra
         this.vidaExtra = false;
         enemigo.disableBody(true, true);
         console.log("Vida extra usada. Sigue jugando.");
       } else {
-        // Perder el juego
         this.reiniciarDatos();
         console.log("Game Over");
-    
-        // Reiniciar los datos persistentes en ambas escenas
-        // this.scene.start("etapa1");
-        // this.scene.start("etapa2");
         this.scene.start("fin");
         
       }
@@ -298,17 +285,15 @@ export default class Juego extends Phaser.Scene {
     }
 
     reiniciarDatos() {
-      console.log("Reiniciar datos");
+      console.log("Reiniciar datos persistentes");
+
 
       this.vidaExtra = false;
       this.dificultad = 1;
       this.tiempo = 0;
       this.puntaje = 0;
       this.tiempoPantalla = 0;
-      this.ultimoEnemigo = 0;
-      if (this.eventoEnemigos) {
-        this.eventoEnemigos.remove();
-      }
+    this.ultimoEnemigo = 0;
     }
   }
   

@@ -18,7 +18,7 @@
     const botonJugar = this.add.image(305, 400, 'botonPlay').setScale(0.9).setInteractive();
     const botonAyuda = this.add.image(750, 50, 'botonAyuda').setScale(1).setInteractive();
 
-    //comenzar el juego
+   
 
     botonJugar.on("pointerover", () => {
       this.game.canvas.style.cursor = "pointer"
@@ -30,10 +30,10 @@
   
   botonJugar.on("pointerdown", () => {
       this.game.canvas.style.cursor = "default";
-      this.scene.start("etapa1");
+      this.scene.start("prueba");
   });
 
-//ir a la escena de ayuda
+
 
   botonAyuda.on("pointerover", () => {
     this.game.canvas.style.cursor = "pointer"
