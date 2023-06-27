@@ -50,9 +50,9 @@ export default class Juego extends Phaser.Scene {
 
   preload () {
     
-    this.load.image(OJO, "/assets/images/ojo.png");
-    this.load.image(FANTASMA, "/assets/images/fantasma.png");
-    this.load.image(MONEDA, "/assets/images/moneda.png");
+    this.load.image(OJO, "./assets/images/ojo.png");
+    this.load.image(FANTASMA, "./assets/images/fantasma.png");
+    this.load.image(MONEDA, "./assets/images/moneda.png");
 
   }
 
