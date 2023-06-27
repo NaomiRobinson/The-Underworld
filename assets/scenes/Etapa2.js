@@ -49,7 +49,7 @@ export default class Juego extends Phaser.Scene {
   
 
   preload() {
-    this.load.image(FUEGO, "./assets/images/fuego.png");
+    this.load.image(FUEGO, "/assets/images/fuego.png");
   }
 
   create() {
