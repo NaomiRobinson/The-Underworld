@@ -75,7 +75,7 @@ export default class Juego extends Phaser.Scene {
 
     this.piedras1 = this.add.tileSprite(400, 300, this.game.config.width, this.game.config.height, "capa1");
     this.piedras1.setScrollFactor(0.5);
-    this.piedras1.setTileScale(1); 
+    this.piedras1.setTileScale(1);
     this.piedras1.setTilePosition(400, 600);
 
     this.jugador = this.physics.add.sprite(300, 300, "personaje").setScale(2);
