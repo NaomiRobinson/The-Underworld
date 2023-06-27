@@ -59,9 +59,29 @@ export default class Juego extends Phaser.Scene {
   }
 
   create () {
-    this.add.image(400, 300, "fondo");
+    this.fondo = this.add.tileSprite(400, 200, 800, 600, "fondo");
+    this.fondo.setScrollFactor(0.5);
+    this.fondo.setTileScale(0.9); 
+    this.fondo.setTilePosition(400, 300);
 
-    this.jugador = this.physics.add.sprite(300, 300, "jugador").setScale(0.5);
+    this.piedras3 = this.add.tileSprite(400, 0, this.game.config.width, this.game.config.height, "piedras3");
+    this.piedras3.setScrollFactor(0.5);
+    this.piedras3.setTileScale(1); 
+    this.piedras3.setTilePosition(400, 220);
+
+    this.piedras2 = this.add.tileSprite(400, 300, this.game.config.width, this.game.config.height, "piedras2");
+    this.piedras2.setScrollFactor(0.5);
+    this.piedras2.setTileScale(1); 
+    this.piedras2.setTilePosition(400, 540);
+
+    this.piedras1 = this.add.tileSprite(400, 300, this.game.config.width, this.game.config.height, "piedras1");
+    this.piedras1.setScrollFactor(0.5);
+    this.piedras1.setTileScale(1); 
+    this.piedras1.setTilePosition(400, 600);
+
+    this.jugador = this.physics.add.sprite(300, 300, "jugador").setScale(1);
+
+    this.jugador.play("correr");  
 
     this.plataforma = this.physics.add.staticSprite(400, 600, "plataforma").setScale(1);
 
@@ -164,7 +184,10 @@ export default class Juego extends Phaser.Scene {
       this.scene.start("etapa2", { tiempo: this.tiempo, puntaje: this.puntaje, dificultad: this.dificultad, vidaExtra: this.vidaExtra });
     }
 
-
+    this.fondo.tilePositionX += 0.2;
+    this.piedras3.tilePositionX += 0.4;
+    this.piedras2.tilePositionX += 0.7;
+    this.piedras1.tilePositionX += 1;
 
 
   }

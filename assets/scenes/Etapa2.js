@@ -32,7 +32,7 @@ export default class Juego extends Phaser.Scene {
           [CALIZ]: { prob: 0.1, score: 500 },
           [VIDAEXTRA]: { prob: 0.3, score: 0 },
         };
-        
+
     this.tiempoPantalla = 0;
 
     if (data && this.scene.key !== "etapa1") {
@@ -51,6 +51,9 @@ export default class Juego extends Phaser.Scene {
 
   create() {
     this.add.image(400, 300, "fondo");
+    this.add.image(400,300,"piedras3");
+    this.add.image(400,300,"piedras2");
+    this.add.image(400,300,"piedras1");
 
     this.textoPuntaje = this.add.text(16, 40, "Puntaje: " + this.puntaje, {
       fontSize: "20px",

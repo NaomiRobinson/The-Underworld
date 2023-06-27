@@ -8,6 +8,9 @@ export default class Precarga extends Phaser.Scene {
   preload() {
 
     this.load.image("fondo", "./assets/images/fondo.png");
+    this.load.image("piedras1", "./assets/images/piedras1.png");
+    this.load.image("piedras2", "./assets/images/piedras2.png");
+    this.load.image("piedras3", "./assets/images/piedras3.png");
     this.load.image("botonPlay", "./assets/images/play.png");
     this.load.image("pelo", "./assets/images/chica.png");
     this.load.image("ladrillos", "./assets/images/ladrillos.png");
@@ -31,11 +34,21 @@ export default class Precarga extends Phaser.Scene {
 
     this.load.image("vidaExtra", "./assets/images/heart.png");
 
+    this.load.spritesheet("personaje", "./assets/images/personaje.png", {
+      frameWidth: 43,
+      frameHeight: 60,
+    });
+
   }
 
-  //cargar las animaciones en create
+
   create() {
-    
+    this.anims.create({
+      key: "correr",
+      frames: this.anims.generateFrameNumbers("personaje", { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1, 
+    });
     this.scene.start("menu");
   }
 }
