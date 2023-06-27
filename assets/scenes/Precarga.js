@@ -18,23 +18,23 @@ export default class Precarga extends Phaser.Scene {
     this.load.image("botonAyuda", "./assets/images/ayuda.png");
     this.load.image("rectangulo", "./assets/images/rectangulo.png");
     
-    this.load.image("plataforma", "./assets/images/plataforma.png");
-    this.load.image("jugador", "./assets/images/jugador.png");
-    this.load.image("ojo", "./assets/images/ojo.png");
-    this.load.image("fantasma", "./assets/images/fantasma.png")
-    this.load.image("fuego", "./assets/imagess/fuego.png");
-    this.load.image("moneda", "./assets/images/moneda.png");
-    this.load.image("caliz", "./assets/images/caliz.png");
-    this.load.image("collar", "./assets/images/collar.png");
-    this.load.image("gema", "./assets/images/gema.png");
-    this.load.image("espejo", "./assets/images/espejo.png");
+    this.load.image("plataforma", "../assets/images/plataforma.png");
+    this.load.image("jugador", "../assets/images/jugador.png");
+    this.load.image("ojo", "../assets/images/ojo.png");
+    this.load.image("fantasma", "../assets/images/fantasma.png")
+    this.load.image("fuego", "../assets/imagess/fuego.png");
+    this.load.image("moneda", "../assets/images/moneda.png");
+    this.load.image("caliz", "../assets/images/caliz.png");
+    this.load.image("collar", "../assets/images/collar.png");
+    this.load.image("gema", "../assets/images/gema.png");
+    this.load.image("espejo", "../assets/images/espejo.png");
 
-    this.load.image("botonreplay", "./assets/images/replay.png");
-    this.load.image("botonmenu", "./assets/images/menu.png");
+    this.load.image("botonreplay", "../assets/images/replay.png");
+    this.load.image("botonmenu", "../assets/images/menu.png");
 
-    this.load.image("vidaExtra", "./assets/images/heart.png");
+    this.load.image("vidaExtra", "../assets/images/heart.png");
 
-    this.load.spritesheet("personaje", "./assets/images/personaje.png", {
+    this.load.spritesheet("personaje", "../assets/images/personaje.png", {
       frameWidth: 43,
       frameHeight: 60,
     });
