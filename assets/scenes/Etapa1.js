@@ -273,7 +273,7 @@ export default class Juego extends Phaser.Scene {
   
       if (objeto.texture.key === VIDAEXTRA && !this.vidaExtra) {
         console.log("Objeto recolectado (vida extra)");
-        this.vidaExtra = true; // El jugador ha recolectado una vida extra
+        this.vidaExtra = true; 
         
       }
 
@@ -284,9 +284,12 @@ export default class Juego extends Phaser.Scene {
         this.textoPuntaje.setText("Puntaje: " + this.puntaje);
       }
 
-    const recordPuntaje = localStorage.getItem('recordPuntaje') || 0;
-    if (this.puntaje > recordPuntaje) {
-    localStorage.setItem('recordPuntaje', this.puntaje);
+      const puntajeTotal = this.puntaje * this.tiempo;
+    
+
+    const recordPuntajeTotal = localStorage.getItem('recordPuntajeTotal') || 0;
+    if (puntajeTotal > recordPuntajeTotal) {
+      localStorage.setItem('recordPuntajeTotal', puntajeTotal);
     }
 
     }

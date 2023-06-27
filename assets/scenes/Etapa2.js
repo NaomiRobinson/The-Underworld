@@ -239,7 +239,8 @@ export default class Juego extends Phaser.Scene {
 
     if (objeto.texture.key === VIDAEXTRA && !this.vidaExtra) {
       console.log("Objeto recolectado (vida extra)");
-      this.vidaExtra = true;
+      this.vidaExtra = true; 
+      
     }
 
     const descObjeto = this.objetoRecolectado[objeto.texture.key];
@@ -247,12 +248,15 @@ export default class Juego extends Phaser.Scene {
       console.log("Objeto recolectado");
       this.puntaje += descObjeto.score;
       this.textoPuntaje.setText("Puntaje: " + this.puntaje);
-    } 
-
-    const recordPuntaje = localStorage.getItem('recordPuntaje') || 0;
-    if (this.puntaje > recordPuntaje) {
-    localStorage.setItem('recordPuntaje', this.puntaje);
     }
+
+    const puntajeTotal = this.puntaje * this.tiempo;
+  
+
+  const recordPuntajeTotal = localStorage.getItem('recordPuntajeTotal') || 0;
+  if (puntajeTotal > recordPuntajeTotal) {
+    localStorage.setItem('recordPuntajeTotal', puntajeTotal);
+  }
 
   }
 

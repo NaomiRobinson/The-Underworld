@@ -279,9 +279,12 @@ export default class Juego extends Phaser.Scene {
         this.textoPuntaje.setText("Puntaje: " + this.puntaje);
       }
 
-      const recordPuntaje = localStorage.getItem('recordPuntaje') || 0;
-    if (this.puntaje > recordPuntaje) {
-    localStorage.setItem('recordPuntaje', this.puntaje);
+      const puntajeTotal = this.puntaje * this.tiempo;
+    
+
+    const recordPuntajeTotal = localStorage.getItem('recordPuntajeTotal') || 0;
+    if (puntajeTotal > recordPuntajeTotal) {
+      localStorage.setItem('recordPuntajeTotal', puntajeTotal);
     }
 
     }
@@ -302,7 +305,7 @@ export default class Juego extends Phaser.Scene {
   
     actualizarTiempo() {
       this.tiempo++;
-      this.textoTiempo.setText(this.tiempo.toString());
+      this.textoTiempo.setText(this.tiempo.toString())
     }
 
     actualizarTiempoPantalla() {

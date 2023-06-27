@@ -17,13 +17,25 @@ export default class Fin extends Phaser.Scene {
     this.add.image(400, 300, "rectangulo").setScale(0.9);
 
     const recordPuntaje = localStorage.getItem('recordPuntaje') || 0;
+    const recordPuntajeTotal = localStorage.getItem('recordPuntajeTotal') || 0;
+    const puntajeTotal = this.puntaje * this.tiempo;
 
     this.add.text(16, 16, `Puntos: ${this.puntaje}`, { fontSize: "32px", fill: "#fff" });
 
     // Crear el texto para mostrar la duración
     this.add.text(16, 64, `Duración: ${this.tiempo} segundos`, { fontSize: "32px", fill: "#fff" });
 
-    this.add.text(16, 112, `Récord: ${recordPuntaje}`, { fontSize: "32px", fill: "#fff" });
+
+    this.add.text(16, 160, `Puntaje Total: ${puntajeTotal}`, { fontSize: "32px", fill: "#fff" });
+
+    
+    this.add.text(16, 112, `Récord: ${recordPuntajeTotal}`, { fontSize: "32px", fill: "#fff" });
+
+    if (puntajeTotal >= recordPuntajeTotal) {
+      // Mostrar mensaje de felicitaciones
+      this.add.text(16, 208, "¡Felicitaciones!", { fontSize: "32px", fill: "#fff" });
+      this.add.text(16, 256, "Superaste tu récord", { fontSize: "32px", fill: "#fff" });
+    };
   
 
 
