@@ -10,15 +10,22 @@
 
   create() {
 
-    this.add.image(400, 300, "fondo");
-    this.add.image(400,300, "ladrillos");
-    this.add.image(400,300, "pelo");
-    this.add.image(400,300, "titulo");
+    // this.add.image(400, 300, "fondo");
+    // this.add.image(400,300, "ladrillos");
+    // this.add.image(400,300, "pelo");
+    
 
-    const botonJugar = this.add.image(305, 400, 'botonPlay').setScale(0.9).setInteractive();
-    const botonAyuda = this.add.image(750, 50, 'botonAyuda').setScale(1).setInteractive();
+ this.fondo = this.add.tileSprite(400, 300, 800, 600, "ladrillos");
+    this.fondo.setScrollFactor(0.5);
+    this.fondo.setTileScale(0.9); 
+    this.fondo.setTilePosition(400, 300);
 
-   
+    this.add.image(526,480, "titulo").setScale(1.4);  
+
+    const botonJugar = this.add.image(350, 450, 'botonPlay').setScale(0.7).setInteractive();
+    const botonAyuda = this.add.image(490, 450, 'botonAyuda').setScale(1).setInteractive();
+
+    
 
     botonJugar.on("pointerover", () => {
       this.game.canvas.style.cursor = "pointer"
@@ -30,7 +37,7 @@
   
   botonJugar.on("pointerdown", () => {
       this.game.canvas.style.cursor = "default";
-      this.scene.start("prueba");
+      this.scene.start("intro");
   });
 
 
@@ -45,11 +52,13 @@ botonAyuda.on("pointerout", () => {
 
 botonAyuda.on("pointerdown", () => {
     this.game.canvas.style.cursor = "default";
-    this.scene.launch("ayuda");
+    this.scene.start("ayuda");
 });
   }
 
 
-  update() {}
+  update() {
+    this.fondo.tilePositionX += 0.2;
+  }
 
   } 

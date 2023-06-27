@@ -5,7 +5,7 @@ import Etapa1 from "./assets/scenes/Etapa1.js";
 import Etapa2 from "./assets/scenes/Etapa2.js";
 import Fin from "./assets/scenes/Fin.js"; 
 import Precarga from "./assets/scenes/Precarga.js";
-import Prueba from "./assets/scenes/prueba.js";
+import Etapa1inicio from "./assets/scenes/Etapa1Inicio.js";
 
 
 const config = {
@@ -28,12 +28,12 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 3600 },
+      gravity: { y: 3490 },
       debug: true,
     },
   },
  
-  scene: [Precarga,Menu,Ayuda,Intro,,Prueba,Etapa1,Etapa2,Fin],
+  scene: [Precarga,Menu,Ayuda,Intro,Etapa1inicio,Etapa1,Etapa2,Fin],
 };
 
 

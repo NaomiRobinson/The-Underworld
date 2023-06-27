@@ -9,14 +9,14 @@ import {
     VIDAEXTRA,
     GEMA,
     COLLAR,
-    ESPEJO,
+    ANILLO,
     CALIZ,
 } from "../../utils.js";  
 
 export default class Juego extends Phaser.Scene {
   
     constructor() {
-      super("prueba");
+      super("etapa1inicio");
   
       
     }
@@ -28,7 +28,7 @@ export default class Juego extends Phaser.Scene {
         [MONEDA]: { prob: 0.8, score: 50 },
         [GEMA]: { prob: 0.6, score: 100 },
         [COLLAR]: { prob: 0.5, score: 150 },
-        [ESPEJO]: { prob: 0.3, score: 200 },
+        [ANILLO]: { prob: 0.3, score: 200 },
         [CALIZ]: { prob: 0.1, score: 500 },
         [VIDAEXTRA]: { prob: 0.3, score: 0 },
       };
@@ -78,7 +78,7 @@ export default class Juego extends Phaser.Scene {
     this.piedras1.setTileScale(1);
     this.piedras1.setTilePosition(400, 600);
 
-    this.jugador = this.physics.add.sprite(300, 300, "personaje").setScale(2);
+    this.jugador = this.physics.add.sprite(200, 300, "personaje").setScale(0.8);
 
   
     this.jugador.play("correr");  
@@ -157,11 +157,11 @@ export default class Juego extends Phaser.Scene {
       fontStyle: "bold",
     });
 
-    this.textoTiempoPantalla = this.add.text(26,100, this.tiempoPantalla, {
-      fontSize: "20px",
-      fill: "#E6DE35",
-      fontStyle: "bold",
-    });
+    // this.textoTiempoPantalla = this.add.text(26,100, this.tiempoPantalla, {
+    //   fontSize: "20px",
+    //   fill: "#E6DE35",
+    //   fontStyle: "bold",
+    // });
 
 
 
@@ -173,11 +173,11 @@ export default class Juego extends Phaser.Scene {
     const tocarObjeto = this.physics.overlap(this.jugador, this.grupoObjetos);
 
     if ((this.cursors.up.isDown || this.cursors.space.isDown) && this.jugador.body.touching.down && !tocarObjeto) {
-      this.jugador.setVelocityY(-2000);
+      this.jugador.setVelocityY(-1465);
     }
 
 
-    if (this.tiempoPantalla >= 10) {
+    if (this.tiempoPantalla >= 20) {
       this.scene.start("etapa2", { tiempo: this.tiempo, puntaje: this.puntaje, dificultad: this.dificultad, vidaExtra: this.vidaExtra });
     }
 
@@ -195,9 +195,9 @@ export default class Juego extends Phaser.Scene {
   const aparicionAleatoria = Phaser.Math.RND.between(ENEMIGOS_DELAY.MIN, ENEMIGOS_DELAY.MAX);
 
   const enemigoRandom = Phaser.Math.RND.pick(ENEMIGOS);
-  const enemigo = this.physics.add.sprite(970, 400, enemigoRandom).setScale(1);
+  const enemigo = this.physics.add.sprite(970, 400, enemigoRandom).setScale(0.9);
 
-  const distancia = 500;
+  const distancia = 560;
 
   const tiempoAparicion = this.ultimoEnemigo + Phaser.Math.RND.between(distancia, distancia * 2);
 
@@ -254,10 +254,10 @@ export default class Juego extends Phaser.Scene {
         }
       }
   
-      const objeto = this.physics.add.sprite(700, randomY, objetoRandom);
+      const objeto = this.physics.add.sprite(700, randomY, objetoRandom).setScale(1.2);
   
       this.grupoObjetos.add(objeto);
-      objeto.setCircle(15, 0, 0);
+      
       objeto.setVelocityX(-290);
       objeto.body.allowGravity = false;
       console.log("Se agregó un objeto:", randomY, objetoRandom);
@@ -310,22 +310,12 @@ export default class Juego extends Phaser.Scene {
 
     actualizarTiempoPantalla() {
       this.tiempoPantalla++;
-      this.textoTiempoPantalla.setText(this.tiempoPantalla.toString());
+      // this.textoTiempoPantalla.setText(this.tiempoPantalla.toString());
     }
 
     aumentarDificultad() {
-    this.dificultad += 0.05; 
+    this.dificultad += 0.01; 
     console.log("dificultad aumentada");
-    }
-
-    reiniciarDatos() {
-      console.log("Reiniciar datos");
-    this.vidaExtra = false;
-    this.dificultad = 1;
-    this.tiempo = 0;
-    this.puntaje = 0;
-    this.tiempoPantalla = 0;
-    this.ultimoEnemigo = 0;
     }
 
     

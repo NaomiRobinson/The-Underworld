@@ -13,35 +13,44 @@ export default class Fin extends Phaser.Scene {
 
   create () {
 
-    
-    this.add.image(400, 300, "rectangulo").setScale(0.9);
+    const etapa1Scene = this.scene.get("etapa1");
+    const etapa2Scene = this.scene.get("etapa2");
 
-    const recordPuntaje = localStorage.getItem('recordPuntaje') || 0;
-    const recordPuntajeTotal = localStorage.getItem('recordPuntajeTotal') || 0;
+    
+    this.add.image(400, 300, "ladrillos").setScale(1);
+
     const puntajeTotal = this.puntaje * this.tiempo;
+    const recordPuntajeTotal = localStorage.getItem('recordPuntajeTotal') || 0;
+    
 
-    this.add.text(16, 16, `Puntos: ${this.puntaje}`, { fontSize: "32px", fill: "#fff" });
+    this.add.text(200, 76, `Puntos: ${this.puntaje}`, { fontSize: "32px", fill: "#fff" });
 
-    // Crear el texto para mostrar la duración
-    this.add.text(16, 64, `Duración: ${this.tiempo} segundos`, { fontSize: "32px", fill: "#fff" });
+   
+    this.add.text(200, 124, `Duración: ${this.tiempo} segundos`, { fontSize: "32px", fill: "#fff" });
 
+    this.add.text(200, 220, `Total: ${puntajeTotal}`, { fontSize: "32px", fill: "#fff" });
 
-    this.add.text(16, 160, `Puntaje Total: ${puntajeTotal}`, { fontSize: "32px", fill: "#fff" });
+    this.add.text(200, 172, `Récord: ${recordPuntajeTotal}`, { fontSize: "32px", fill: "#fff" });
 
     
-    this.add.text(16, 112, `Récord: ${recordPuntajeTotal}`, { fontSize: "32px", fill: "#fff" });
+    
 
     if (puntajeTotal >= recordPuntajeTotal) {
-      // Mostrar mensaje de felicitaciones
-      this.add.text(16, 208, "¡Felicitaciones!", { fontSize: "32px", fill: "#fff" });
-      this.add.text(16, 256, "Superaste tu récord", { fontSize: "32px", fill: "#fff" });
+
+      this.add.text(160, 280, "¡Felicitaciones!", { fontSize: "50px", fill: "#fff" });
+      this.add.text(140, 360, "Superaste tu récord", { fontSize: "45px", fill: "#fff" });
     };
+
+
+
+      
+
   
 
 
     
-    const botonJugar = this.add.image(305, 400, 'botonreplay').setScale(0.5).setInteractive();
-    const botonMenu = this.add.image(500, 400,  'botonmenu').setScale(0.5).setInteractive();
+    const botonJugar = this.add.image(200, 500, 'botonreplay').setScale(0.5).setInteractive();
+    const botonMenu = this.add.image(600, 500,  'botonmenu').setScale(0.5).setInteractive();
 
 
     botonJugar.on("pointerover", () => {
@@ -53,12 +62,15 @@ export default class Fin extends Phaser.Scene {
     });
     
     botonJugar.on("pointerdown", () => {
-      this.game.canvas.style.cursor = "default";
-      etapa1Scene.reiniciarDatos();
-      etapa2Scene.reiniciarDatos();
-      this.scene.start("prueba");
-    });
-  
+
+    if (etapa2Scene) {
+      etapa1Scene.data.destroy();
+    }
+    if (etapa1Scene) {
+      etapa1Scene.data.destroy();
+    }
+    this.scene.start("etapa1inicio");
+  });
 
   
     botonMenu.on("pointerover", () => {
@@ -71,26 +83,18 @@ export default class Fin extends Phaser.Scene {
   
     botonMenu.on("pointerdown", () => {
       this.game.canvas.style.cursor = "default";
-      etapa1Scene.reiniciarDatos();
-      etapa2Scene.reiniciarDatos();
+    
       this.scene.start("menu");
     });
 
-    const etapa1Scene = this.scene.get("etapa1");
-    const etapa2Scene = this.scene.get("etapa2");
+    
 
-    this.reiniciarDatos(etapa1Scene, etapa2Scene);
+    
   }
 
   update() {}
 
-  reiniciarDatos(etapa1Scene, etapa2Scene) {
-    console.log("Reiniciar datos persistentes");
 
-
-    etapa1Scene.reiniciarDatos();
-    etapa2Scene.reiniciarDatos();
   }
 
 
-}

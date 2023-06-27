@@ -10,18 +10,18 @@ export default class Ayuda extends Phaser.Scene {
 
     create () {
 
-      this.add.image(400,300, "rectangulo").setScale(0.9);
-      const botonAyuda = this.add.image(750, 50, 'botonAyuda').setScale(1).setInteractive();
+      this.add.image(400,300, "fondoayuda").setScale(0.65);
+      const botonAtras = this.add.image(60 , 50, 'volveratras').setScale(0.6).setInteractive();
 
-      botonAyuda.on("pointerover", () => {
+      botonAtras.on("pointerover", () => {
         this.game.canvas.style.cursor = "pointer"
     });
     
-    botonAyuda.on("pointerout", () => {
+    botonAtras.on("pointerout", () => {
         this.game.canvas.style.cursor = "default";
     });
     
-    botonAyuda.on("pointerdown", () => {
+    botonAtras.on("pointerdown", () => {
         this.game.canvas.style.cursor = "default";
         this.scene.start("menu");
     });
