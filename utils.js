@@ -4,8 +4,8 @@ const OJO = "Ojo";
 const ENEMIGOS = [FANTASMA, OJO];
 
 const ENEMIGOS_DELAY = {
-  MIN: 1000,
-  MAX: 5000,
+  MIN: 500,
+  MAX: 3000,
 };
 
 

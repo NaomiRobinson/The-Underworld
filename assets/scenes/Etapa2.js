@@ -16,11 +16,6 @@ import {
 export default class Juego extends Phaser.Scene {
   constructor() {
     super("etapa2");
-    this.tiempoPantalla = 0;
-    this.vidaExtra = false;
-    this.dificultad = 1;
-    this.tiempo = 0;
-    this.puntaje = 0;
   }
 
   init(data) {
@@ -33,7 +28,11 @@ export default class Juego extends Phaser.Scene {
           [VIDAEXTRA]: { prob: 0.3, score: 0 },
         };
 
-    this.tiempoPantalla = 0;
+        this.tiempoPantalla = 0;
+        this.vidaExtra = false;
+        this.dificultad = 1;
+        this.tiempo = 0;
+        this.puntaje = 0;
 
     if (data && this.scene.key !== "etapa1") {
       this.vidaExtra = data.vidaExtra || this.vidaExtra;
@@ -74,12 +73,10 @@ export default class Juego extends Phaser.Scene {
     this.textoTiempo.setDepth(1);
 
 
-    this.jugador = this.physics.add.sprite(150, 300, "personaje").setScale(0.5);
+    this.jugador = this.physics.add.sprite(200, 300, "personaje").setScale(0.6);
    
 
-    this.plataforma = this.physics.add
-      .staticSprite(400, 600, "plataforma")
-      .setScale(1);
+    this.plataforma = this.physics.add.staticSprite(400, 650, "plataforma").setScale(1);
 
     this.grupoObstaculos = this.physics.add.group();
     this.grupoObjetos = this.physics.add.group();
@@ -115,11 +112,19 @@ export default class Juego extends Phaser.Scene {
     this.jugador.setCollideWorldBounds (true);
 
     this.time.addEvent({
+      delay: 2000,
+      callback: this.aumentarDificultad,
+      callbackScope: this,
+      loop: true,
+    });
+
+    this.time.addEvent({
       delay: OBSTACULOS_DELAY,
       callback: this.agregarObstaculo,
       callbackScope: this,
       loop: true,
     });
+
 
     this.time.addEvent({
       delay: OBJETOS_DELAY,
@@ -289,6 +294,11 @@ export default class Juego extends Phaser.Scene {
   actualizarTiempoPantalla() {
     this.tiempoPantalla++;
     // this.textoTiempoPantalla.setText(this.tiempoPantalla.toString());
+  }
+
+  aumentarDificultad() {
+    this.dificultad += 0.005;  
+  console.log("dificultad aumentada");
   }
 
   
