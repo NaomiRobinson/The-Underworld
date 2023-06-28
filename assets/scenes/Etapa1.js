@@ -95,10 +95,11 @@ export default class Juego extends Phaser.Scene {
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    this.grupoEnemigos = this.physics.add.group();
-
     this.grupoObjetos = this.physics.add.group();
 
+    this.grupoEnemigos = this.physics.add.group();
+
+   
     
 
     this.physics.add.collider(this.grupoObjetos, this.plataforma);

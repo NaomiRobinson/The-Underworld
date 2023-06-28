@@ -78,8 +78,9 @@ export default class Juego extends Phaser.Scene {
 
     this.plataforma = this.physics.add.staticSprite(400, 650, "plataforma").setScale(1);
 
-    this.grupoObstaculos = this.physics.add.group();
+    
     this.grupoObjetos = this.physics.add.group();
+    this.grupoObstaculos = this.physics.add.group();
 
     
 
