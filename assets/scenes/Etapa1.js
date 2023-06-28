@@ -8,7 +8,7 @@ import {
     OBJETOS_DELAY,
     VIDAEXTRA,
     GEMA,
-    COLLAR,
+    CORONA,
     ANILLO,
     CALIZ,
 } from "../../utils.js";  
@@ -26,10 +26,10 @@ export default class Juego extends Phaser.Scene {
 
       this.objetoRecolectado = {
         [MONEDA]: { prob: 0.8, score: 50 },
-        [GEMA]: { prob: 0.6, score: 100 },
-        [COLLAR]: { prob: 0.5, score: 150 },
-        [ANILLO]: { prob: 0.3, score: 200 },
-        [CALIZ]: { prob: 0.1, score: 500 },
+        [GEMA]: { prob: 0.5, score: 200 },
+        [CORONA]: { prob: 0.1, score: 250 },
+        [ANILLO]: { prob: 0.3, score: 150 },
+        [CALIZ]: { prob: 0.6, score: 100 },
         [VIDAEXTRA]: { prob: 0.3, score: 0 },
       };
 
@@ -253,7 +253,7 @@ export default class Juego extends Phaser.Scene {
         );
       }
   
-      const randomY = Phaser.Math.RND.between(20, 450);
+      const randomY = Phaser.Math.RND.between(100, 450);
 
       const probTotal = OBJETOS.reduce((total, objeto) => total + objeto.probabilidad, 0);
       const numRandom = Phaser.Math.RND.frac() * probTotal;  //número aleatorio entre 0 y el peso total utilizando 
