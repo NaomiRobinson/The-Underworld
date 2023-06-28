@@ -19,38 +19,29 @@ export default class Fin extends Phaser.Scene {
     
     this.add.image(400, 300, "ladrillos").setScale(1);
 
+    this.add.image(400, 300, "recuadro").setScale(0.9);
+
     const puntajeTotal = this.puntaje * this.tiempo;
     const recordPuntajeTotal = localStorage.getItem('recordPuntajeTotal') || 0;
     
 
-    this.add.text(200, 76, `Puntos: ${this.puntaje}`, { fontSize: "32px", fill: "#fff" });
-
-   
-    this.add.text(200, 124, `Duración: ${this.tiempo} segundos`, { fontSize: "32px", fill: "#fff" });
-
-    this.add.text(200, 220, `Total: ${puntajeTotal}`, { fontSize: "32px", fill: "#fff" });
-
-    this.add.text(200, 172, `Récord: ${recordPuntajeTotal}`, { fontSize: "32px", fill: "#fff" });
-
-    
-    
+    this.add.text(200, 76, `Puntos: ${this.puntaje}`, { fontSize: "32px", fill: "#cd912b", fontStyle: "bold" });
+    this.add.text(200, 124, `Duración: ${this.tiempo} s`, { fontSize: "32px", fill: "#cd912b", fontStyle: "bold" });
+    this.add.text(200, 172, `Total: ${puntajeTotal}`, { fontSize: "32px", fill: "#cd912b", fontStyle: "bold" });
+  
+    this.add.text(200, 220, `Récord: ${recordPuntajeTotal}`, { fontSize: "32px", fill: "#cd912b", fontStyle: "bold" });
 
     if (puntajeTotal >= recordPuntajeTotal) {
 
       this.add.text(160, 280, "¡Felicitaciones!", { fontSize: "50px", fill: "#fff" });
       this.add.text(140, 360, "Superaste tu récord", { fontSize: "45px", fill: "#fff" });
+    } else {
+      this.add.text(160, 280, "juega de nuevo", { fontSize: "50px", fill: "#fff" });
+      this.add.text(90, 360, "para superar tu record", { fontSize: "45px", fill: "#fff" });
     };
 
-
-
-      
-
-  
-
-
-    
-    const botonJugar = this.add.image(200, 500, 'botonreplay').setScale(0.5).setInteractive();
-    const botonMenu = this.add.image(600, 500,  'botonmenu').setScale(0.5).setInteractive();
+    const botonJugar = this.add.image(100, 500, 'botonreplay').setScale(0.5).setInteractive();
+    const botonMenu = this.add.image(270, 500,  'botonmenu').setScale(0.5).setInteractive();
 
 
     botonJugar.on("pointerover", () => {
