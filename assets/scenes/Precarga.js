@@ -35,8 +35,8 @@ export default class Precarga extends Phaser.Scene {
 
     this.load.image("vidaExtra", "./assets/images/vidaextra.png");
 
-    this.load.spritesheet("personaje", "./assets/images/personaje.png", {
-      frameWidth: 171,
+    this.load.spritesheet("personaje", "./assets/images/prueba.png", {
+      frameWidth: 177,
       frameHeight: 240,
     });
 
@@ -49,12 +49,21 @@ export default class Precarga extends Phaser.Scene {
 
 
   create() {
+
+    
     this.anims.create({
       key: "correr",
-      frames: this.anims.generateFrameNumbers("personaje", { start: 0, end: 3 }),
+      frames: this.anims.generateFrameNumbers("personaje", { start: 1, end: 5 }),
       frameRate: 10,
       repeat: -1, 
     }); 
+    this.anims.create({
+      key: "parado",
+      frames: this.anims.generateFrameNumbers("personaje", { start: 0, end: 0 }),
+      frameRate: 10,
+      repeat: -1, 
+    }); 
+
     this.anims.create({
       key: "animacion",
       frames: this.anims.generateFrameNumbers("animacionintro", { start: 0, end: 3 }),

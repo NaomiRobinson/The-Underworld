@@ -22,7 +22,7 @@ const ANILLO = "anillo";
 const GEMA = "gema";
 
 const OBJETOS = [MONEDA,VIDAEXTRA,CALIZ,CORONA,ANILLO,GEMA];
-const OBJETOS_DELAY = 2000;
+const OBJETOS_DELAY = 1000;
 
 const OBJETOS_PANTALLA = 3000;
 

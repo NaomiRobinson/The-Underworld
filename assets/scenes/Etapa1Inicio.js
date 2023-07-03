@@ -78,7 +78,13 @@ export default class Juego extends Phaser.Scene {
     this.piedras1.setTileScale(1);
     this.piedras1.setTilePosition(400, 600);
 
+    this.plataforma = this.physics.add.staticSprite(400, 650, "plataforma").setScale(1);
+    this.plataforma.setScrollFactor(0.5);
+
     this.jugador = this.physics.add.sprite(200, 300, "personaje").setScale(0.7);
+    
+
+    this.jugador.body.setSize(150, 219);  
 
   
     this.jugador.play("correr");  
@@ -88,8 +94,6 @@ export default class Juego extends Phaser.Scene {
     // this.plataforma.setTileScale(1);
     // this.plataforma.setTilePosition(400, 600);
 
-    this.plataforma = this.physics.add.staticSprite(400, 650, "plataforma").setScale(1);
-    this.plataforma.setScrollFactor(0.5);
 
     this.physics.add.collider(this.jugador, this.plataforma);
 
@@ -212,7 +216,10 @@ export default class Juego extends Phaser.Scene {
   const enemigoRandom = Phaser.Math.RND.pick(ENEMIGOS);
   const enemigo = this.physics.add.sprite(970, 400, enemigoRandom).setScale(0.8);
 
-  const distancia = 580;
+  enemigo.body.setSize(115, 105);  
+
+
+  const distancia = 600;
 
   const tiempoAparicion = this.ultimoEnemigo + Phaser.Math.RND.between(distancia, distancia * 2);
 

@@ -72,11 +72,16 @@ export default class Juego extends Phaser.Scene {
     this.textoPuntaje.setDepth(1);
     this.textoTiempo.setDepth(1);
 
+    this.plataforma = this.physics.add.staticSprite(400, 650, "plataforma").setScale(1);
 
-    this.jugador = this.physics.add.sprite(200, 300, "personaje").setScale(0.6);
+    this.jugador = this.physics.add.sprite(200, 300, "personaje").setScale(0.5);
+
+    this.jugador.body.setSize(135, 210);  
+
+    
    
 
-    this.plataforma = this.physics.add.staticSprite(400, 650, "plataforma").setScale(1);
+    
 
     
     this.grupoObjetos = this.physics.add.group();
@@ -163,13 +168,20 @@ export default class Juego extends Phaser.Scene {
     ) {
       this.jugador.setVelocityY(-1500);
     }
-
+    
     if (this.cursors.left.isDown) {
       this.jugador.setVelocityX(-600);
+      this.jugador.play("correr", true);
+      this.jugador.flipX = true;
     } else if (this.cursors.right.isDown) {
       this.jugador.setVelocityX(600);
+      this.jugador.play("correr", true);
+      this.jugador.flipX = false;
     } else {
       this.jugador.setVelocityX(0);
+      
+        this.jugador.anims.play("parado");
+
     }
 
     if (this.tiempoPantalla >= 10) {
@@ -188,13 +200,14 @@ export default class Juego extends Phaser.Scene {
     const obstaculo = this.physics.add.sprite(randomX, 0, obstaculoRandom)
 
     obstaculo.setScale(2);
-    obstaculo.body.gravity.y = 5;
+    obstaculo.body.setSize(10, 20);
+    obstaculo.body.gravity.y = 1;
 
     this.grupoObstaculos.add(obstaculo);
     //obstaculo.value = 1;
     
     console.log("obstacle is added", randomX, obstaculoRandom);
-    this.physics.add.overlap(
+    this.physics.add.collider(
       this.plataforma,
       obstaculo, () => {
       obstaculo.disableBody(true,true); 
