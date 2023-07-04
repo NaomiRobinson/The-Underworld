@@ -72,24 +72,17 @@ export default class Juego extends Phaser.Scene {
     this.textoPuntaje.setDepth(1);
     this.textoTiempo.setDepth(1);
 
+    this.physics.world.gravity.y = 2000;
+
     this.plataforma = this.physics.add.staticSprite(400, 650, "plataforma").setScale(1);
 
     this.jugador = this.physics.add.sprite(200, 300, "personaje").setScale(0.5);
 
     this.jugador.body.setSize(135, 210);  
 
-    
-   
-
-    
-
-    
     this.grupoObjetos = this.physics.add.group();
     this.grupoObstaculos = this.physics.add.group();
 
-    
-
-    
 
     this.physics.add.collider(this.jugador, this.plataforma);
 
@@ -166,7 +159,7 @@ export default class Juego extends Phaser.Scene {
       (this.cursors.up.isDown || this.cursors.space.isDown) &&
       this.jugador.body.touching.down
     ) {
-      this.jugador.setVelocityY(-1500);
+      this.jugador.setVelocityY(-1200);
     }
     
     if (this.cursors.left.isDown) {
@@ -197,11 +190,11 @@ export default class Juego extends Phaser.Scene {
     const obstaculoRandom = Phaser.Math.RND.pick(OBSTACULOS);
     const randomX = Phaser.Math.RND.between(10, 790);
 
-    const obstaculo = this.physics.add.sprite(randomX, 0, obstaculoRandom)
+    const obstaculo = this.physics.add.sprite(randomX, 0, obstaculoRandom).setScale(0.9)
 
-    obstaculo.setScale(2);
     obstaculo.body.setSize(10, 20);
-    obstaculo.body.gravity.y = 1;
+
+    obstaculo.play("animFuego");
 
     this.grupoObstaculos.add(obstaculo);
     //obstaculo.value = 1;

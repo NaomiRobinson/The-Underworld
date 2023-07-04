@@ -22,7 +22,7 @@ export default class Precarga extends Phaser.Scene {
     this.load.image("plataforma", "./assets/images/plataforma.png");
     this.load.image("jugador", "./assets/images/jugador.png");
     
-    this.load.image("fuego", "./assets/imagess/fuego.png");
+    
     this.load.image("moneda", "./assets/images/moneda.png");
     this.load.image("caliz", "./assets/images/caliz.png");
     this.load.image("corona", "./assets/images/corona.png");
@@ -47,6 +47,11 @@ export default class Precarga extends Phaser.Scene {
     this.load.spritesheet("ojo", "./assets/images/ojo.png", {
       frameWidth: 133,
       frameHeight: 130,
+    });
+
+    this.load.spritesheet("fuego", "./assets/images/fuego.png", {
+      frameWidth: 34.5,
+      frameHeight: 60,
     });
 
     this.load.spritesheet("animacionintro", "./assets/images/animacionintro.png", {
@@ -79,10 +84,18 @@ export default class Precarga extends Phaser.Scene {
       repeat: -1, 
     })
 
+
     this.anims.create({
       key: "animOjo",
       frames: this.anims.generateFrameNumbers("ojo", { start: 0, end: 5 }),
       frameRate: 5,
+      repeat: -1, 
+    })
+
+    this.anims.create({
+      key: "animFuego",
+      frames: this.anims.generateFrameNumbers("fuego", { start: 0, end: 3 }),
+      frameRate: 10,
       repeat: -1, 
     })
 
