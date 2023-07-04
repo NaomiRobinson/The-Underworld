@@ -12,6 +12,7 @@ import {
     ANILLO,
     CALIZ,
     ENEMIGOS_ANIM,
+    OBJETOS_ANIM,
 } from "../../utils.js";  
 
 export default class Juego extends Phaser.Scene {
@@ -281,6 +282,9 @@ export default class Juego extends Phaser.Scene {
       }
   
       const objeto = this.physics.add.sprite(700, randomY, objetoRandom).setScale(1.2);
+
+      const animacion = OBJETOS_ANIM[objetoRandom];
+      objeto.play(animacion);
   
       this.grupoObjetos.add(objeto);
       

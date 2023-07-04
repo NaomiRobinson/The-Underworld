@@ -23,16 +23,12 @@ export default class Precarga extends Phaser.Scene {
     this.load.image("jugador", "./assets/images/jugador.png");
     
     
-    this.load.image("moneda", "./assets/images/moneda.png");
-    this.load.image("caliz", "./assets/images/caliz.png");
-    this.load.image("corona", "./assets/images/corona.png");
-    this.load.image("gema", "./assets/images/gema.png");
-    this.load.image("anillo", "./assets/images/anillo.png");
+   
 
     this.load.image("botonreplay", "./assets/images/replay.png");
     this.load.image("botonmenu", "./assets/images/menu.png");
 
-    this.load.image("vidaExtra", "./assets/images/vidaextra.png");
+    
 
     this.load.spritesheet("personaje", "./assets/images/prueba.png", {
       frameWidth: 177,
@@ -43,7 +39,6 @@ export default class Precarga extends Phaser.Scene {
       frameWidth: 140,
       frameHeight: 126,
     });
-
     this.load.spritesheet("ojo", "./assets/images/ojo.png", {
       frameWidth: 133,
       frameHeight: 130,
@@ -54,11 +49,37 @@ export default class Precarga extends Phaser.Scene {
       frameHeight: 60,
     });
 
+    this.load.spritesheet("anillo", "./assets/images/anillo.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("caliz", "./assets/images/caliz.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("corona", "./assets/images/corona.png", {
+      frameWidth: 35,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("gema", "./assets/images/gema.png", {
+      frameWidth: 35,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("moneda", "./assets/images/moneda.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("vidaExtra", "./assets/images/vidaextra.png", {
+      frameWidth: 35,
+      frameHeight: 32,
+    });
+
+
+
     this.load.spritesheet("animacionintro", "./assets/images/animacionintro.png", {
       frameWidth: 800,
       frameHeight: 600,
     });
-
   }
 
   create() {
@@ -88,7 +109,7 @@ export default class Precarga extends Phaser.Scene {
     this.anims.create({
       key: "animOjo",
       frames: this.anims.generateFrameNumbers("ojo", { start: 0, end: 5 }),
-      frameRate: 5,
+      frameRate: 10,
       repeat: -1, 
     })
 
@@ -100,11 +121,54 @@ export default class Precarga extends Phaser.Scene {
     })
 
     this.anims.create({
+      key: "animCaliz",
+      frames: this.anims.generateFrameNumbers("caliz", { start: 0, end: 5 }),
+      frameRate: 10,
+      repeat: -1, 
+    })
+
+    this.anims.create({
+      key: "animMoneda",
+      frames: this.anims.generateFrameNumbers("moneda", { start: 0, end: 4 }),
+      frameRate: 10,
+      repeat: -1, 
+    })
+
+    this.anims.create({
+      key: "animGema",
+      frames: this.anims.generateFrameNumbers("gema", { start: 0, end: 5 }),
+      frameRate: 10,
+      repeat: -1, 
+    })
+
+    this.anims.create({
+      key: "animCorona",
+      frames: this.anims.generateFrameNumbers("corona", { start: 0, end: 6 }),
+      frameRate: 10,
+      repeat: -1, 
+    })
+
+    this.anims.create({
+      key: "animAnillo",
+      frames: this.anims.generateFrameNumbers("anillo", { start: 0, end: 6 }),
+      frameRate: 10,
+      repeat: -1, 
+    })
+
+    this.anims.create({
+      key: "animVidaExtra",
+      frames: this.anims.generateFrameNumbers("vidaExtra", { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1, 
+    })
+
+    this.anims.create({
       key: "animacion",
       frames: this.anims.generateFrameNumbers("animacionintro", { start: 0, end: 3 }),
       frameRate: 100,
       repeat: 0, 
     }); 
     this.scene.start("menu");
+
   }
 }

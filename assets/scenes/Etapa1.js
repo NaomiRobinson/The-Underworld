@@ -12,6 +12,7 @@ import {
     ANILLO,
     CALIZ,
     ENEMIGOS_ANIM,
+    OBJETOS_ANIM,
 } from "../../utils.js";  
 
 export default class Juego extends Phaser.Scene {
@@ -222,7 +223,7 @@ export default class Juego extends Phaser.Scene {
 
   enemigo.body.setSize(115, 105); 
 
-  const distancia = 580;
+  const distancia = 600;
 
   const tiempoAparicion = this.ultimoEnemigo + Phaser.Math.RND.between(distancia, distancia * 2);
 
@@ -280,6 +281,9 @@ export default class Juego extends Phaser.Scene {
       }
   
       const objeto = this.physics.add.sprite(700, randomY, objetoRandom).setScale(1.2);
+
+      const animacion = OBJETOS_ANIM[objetoRandom];
+      objeto.play(animacion);
   
       this.grupoObjetos.add(objeto);
       

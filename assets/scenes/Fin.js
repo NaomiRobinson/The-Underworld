@@ -26,7 +26,7 @@ export default class Fin extends Phaser.Scene {
     
 
     this.add.text(200, 76, `Puntos: ${this.puntaje}`, { fontSize: "32px", fill: "#cd912b", fontStyle: "bold" });
-    this.add.text(200, 124, `Duración: ${this.tiempo} s`, { fontSize: "32px", fill: "#cd912b", fontStyle: "bold" });
+    this.add.text(200, 124, `Duración: ${this.tiempo} s`, { fontSize: "32px", fill: "#cd912b", fontStyle: "bold"});
     this.add.text(200, 172, `Total: ${puntajeTotal}`, { fontSize: "32px", fill: "#cd912b", fontStyle: "bold" });
   
     this.add.text(200, 220, `Récord: ${recordPuntajeTotal}`, { fontSize: "32px", fill: "#cd912b", fontStyle: "bold" });

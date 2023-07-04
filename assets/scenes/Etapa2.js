@@ -11,6 +11,7 @@ import {
   ANILLO,
   CALIZ,
   OBJETOS_PANTALLA,
+  OBJETOS_ANIM,
 } from "../../utils.js";
 
 export default class Juego extends Phaser.Scene {
@@ -220,7 +221,10 @@ export default class Juego extends Phaser.Scene {
     const randomX = Phaser.Math.RND.between(20, 450);
 
     
-    const objeto = this.physics.add.sprite(randomX, randomY, objetoRandom).setScale(0.8);
+    const objeto = this.physics.add.sprite(randomX, randomY, objetoRandom).setScale(1);
+
+    const animacion = OBJETOS_ANIM[objetoRandom];
+    objeto.play(animacion);
 
     const probTotal = OBJETOS.reduce(
       (total, objeto) => total + objeto.probabilidad,
