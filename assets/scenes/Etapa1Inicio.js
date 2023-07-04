@@ -11,6 +11,7 @@ import {
     CORONA,
     ANILLO,
     CALIZ,
+    ENEMIGOS_ANIM,
 } from "../../utils.js";  
 
 export default class Juego extends Phaser.Scene {
@@ -214,7 +215,10 @@ export default class Juego extends Phaser.Scene {
   const aparicionAleatoria = Phaser.Math.RND.between(ENEMIGOS_DELAY.MIN, ENEMIGOS_DELAY.MAX);
 
   const enemigoRandom = Phaser.Math.RND.pick(ENEMIGOS);
-  const enemigo = this.physics.add.sprite(970, 400, enemigoRandom).setScale(0.8);
+  const enemigo = this.physics.add.sprite(970, 400, enemigoRandom).setScale(0.9);
+
+  const animacion = ENEMIGOS_ANIM[enemigoRandom];
+  enemigo.play(animacion);
 
   enemigo.body.setSize(115, 105);  
 
