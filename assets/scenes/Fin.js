@@ -16,6 +16,8 @@ export default class Fin extends Phaser.Scene {
     const etapa1Scene = this.scene.get("etapa1");
     const etapa2Scene = this.scene.get("etapa2");
 
+    this.sound.stopAll();
+
     
     this.add.image(400, 300, "ladrillos").setScale(1);
 

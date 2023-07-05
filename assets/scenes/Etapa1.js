@@ -65,6 +65,7 @@ export default class Juego extends Phaser.Scene {
   }
 
   create () {
+
     this.fondo = this.add.tileSprite(400, 200, 800, 600, "fondo");
     this.fondo.setScrollFactor(0.5);
     this.fondo.setTileScale(0.9); 
@@ -184,8 +185,7 @@ export default class Juego extends Phaser.Scene {
     //   fontStyle: "bold",
     // });
 
-
-
+  
 
   }
 

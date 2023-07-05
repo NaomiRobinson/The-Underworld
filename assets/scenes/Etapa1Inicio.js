@@ -183,7 +183,9 @@ export default class Juego extends Phaser.Scene {
     //   fill: "#E6DE35",
     //   fontStyle: "bold",
     // });
-
+    const musica = this.sound.add("musicaFondo");
+    musica.play();
+    musica.setLoop(true);
 
 
 

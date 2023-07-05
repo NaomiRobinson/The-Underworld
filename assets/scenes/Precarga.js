@@ -6,6 +6,8 @@ export default class Precarga extends Phaser.Scene {
 
   preload() {
 
+    this.load.audio("musicaFondo", "./assets/audio/musica.mp3");
+
     this.load.image("fondo", "./assets/images/fondo.png");
     this.load.image("fondoayuda", "./assets/images/fondoayuda.png");
     this.load.image("capa1", "./assets/images/capa1.png");
@@ -83,6 +85,8 @@ export default class Precarga extends Phaser.Scene {
   }
 
   create() {
+
+
 
     
     this.anims.create({
