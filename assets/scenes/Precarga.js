@@ -6,7 +6,14 @@ export default class Precarga extends Phaser.Scene {
 
   preload() {
 
-    this.load.audio("musicaFondo", "./assets/audio/musica.mp3");
+    this.load.audio("musicaFondo", "./assets/audio/musicajuego.mp3");
+    this.load.audio("musicaMenu", "./assets/audio/musicamenu2.mp3");
+
+    this.load.audio("juntarObjeto", "./assets/audio/juntarobjeto.mp3");
+    this.load.audio("juntarPocion", "./assets/audio/juntarpocion.mp3");
+    this.load.audio("perder", "./assets/audio/perder.mp3");
+    this.load.audio("salto", "./assets/audio/salto.mp3");
+    this.load.audio("seleccionMenu", "./assets/audio/seleccionmenu.mp3");            
 
     this.load.image("fondo", "./assets/images/fondo.png");
     this.load.image("fondoayuda", "./assets/images/fondoayuda.png");
@@ -172,6 +179,9 @@ export default class Precarga extends Phaser.Scene {
       frameRate: 100,
       repeat: 0, 
     }); 
+
+    
+
     this.scene.start("menu");
 
   }

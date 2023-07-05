@@ -53,33 +53,19 @@ export default class Juego extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(400, 300, "fondo");
+    this.add.image(400, 300,"fondo");
     this.add.image(400,300,"capa3");
     this.add.image(400,300,"capa2");
     this.add.image(400,300,"capa1");
 
-    this.textoPuntaje = this.add.text(16, 40, + this.puntaje, {
-      fontSize: "20px",
-      fill: "#FFFFFF",
-      fontStyle: "bold",
-    });
-
-    this.textoTiempo = this.add.text(16, 60,  + this.tiempo, {
-      fontSize: "20px",
-      fill: "#E6DE35",
-      fontStyle: "bold",
-    });
-
-    this.textoPuntaje.setDepth(1);
-    this.textoTiempo.setDepth(1);
-
-    this.physics.world.gravity.y = 2000;
 
     this.plataforma = this.physics.add.staticSprite(400, 650, "plataforma").setScale(1);
-
     this.jugador = this.physics.add.sprite(200, 300, "personaje").setScale(0.5);
-
     this.jugador.body.setSize(135, 210);  
+
+
+
+    this.physics.world.gravity.y = 2000;
 
     this.grupoObjetos = this.physics.add.group();
     this.grupoObstaculos = this.physics.add.group();
@@ -145,6 +131,18 @@ export default class Juego extends Phaser.Scene {
       callback: this.actualizarTiempoPantalla,
       callbackScope: this,
       loop: true,
+    });
+
+    this.textoPuntaje = this.add.text(16, 40, + this.puntaje, {
+      fontSize: "20px",
+      fill: "#FFFFFF",
+      fontStyle: "bold",
+    });
+
+    this.textoTiempo = this.add.text(16, 60,  + this.tiempo, {
+      fontSize: "20px",
+      fill: "#E6DE35",
+      fontStyle: "bold",
     });
 
     // this.textoTiempoPantalla = this.add.text(26,100, this.tiempoPantalla, {
@@ -259,12 +257,19 @@ export default class Juego extends Phaser.Scene {
   }
 
   recolectarObjeto(jugador, objeto) {
+
+    const sonidoObjeto = this.sound.add("juntarObjeto"); 
+    const sonidoPocion = this.sound.add("juntarPocion"); 
+
     objeto.disableBody(true, true);
 
     if (objeto.texture.key === VIDAEXTRA && !this.vidaExtra) {
       console.log("Objeto recolectado (vida extra)");
+      sonidoPocion.play();
       this.vidaExtra = true; 
       
+    }else {
+      sonidoObjeto.play();
     }
 
     const descObjeto = this.objetoRecolectado[objeto.texture.key];
@@ -285,15 +290,20 @@ export default class Juego extends Phaser.Scene {
   }
 
   restarVida(jugador, enemigo) {
-
-  
+    
     if (this.vidaExtra) {
       this.vidaExtra = false;
       enemigo.disableBody(true, true);
       console.log("Vida extra usada. Sigue jugando.");
     } else {
+      
       console.log("Game Over");
-      this.scene.start("fin", {puntaje: this.puntaje, tiempo: this.tiempo });
+      const overlay = this.add.rectangle(0, 0, this.game.config.width, this.game.config.height, 0x000000, 0.6);
+      overlay.setOrigin(0, 0);
+      
+      this.scene.launch("fin", {puntaje: this.puntaje, tiempo: this.tiempo });
+      this.scene.pause();
+      
     }
   }
 
@@ -313,6 +323,4 @@ export default class Juego extends Phaser.Scene {
   }
 
   
-
-
 }

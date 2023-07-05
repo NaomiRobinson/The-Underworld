@@ -10,6 +10,16 @@
 
   create() {
 
+    this.sound.stopAll();
+
+    const musicaMenu = this.sound.add("musicaMenu");
+    musicaMenu.play();
+    musicaMenu.setLoop(true);
+
+    const sonidoSeleccion = this.sound.add("seleccionMenu");
+    
+    
+
     // this.add.image(400, 300, "fondo");
     // this.add.image(400,300, "ladrillos");
     // this.add.image(400,300, "pelo");
@@ -37,6 +47,7 @@
   
   botonJugar.on("pointerdown", () => {
       this.game.canvas.style.cursor = "default";
+      sonidoSeleccion.play();
       this.scene.start("intro");
   });
 
@@ -52,6 +63,7 @@ botonAyuda.on("pointerout", () => {
 
 botonAyuda.on("pointerdown", () => {
     this.game.canvas.style.cursor = "default";
+    sonidoSeleccion.play();
     this.scene.start("ayuda");
 });
   }

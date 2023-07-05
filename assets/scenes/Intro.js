@@ -11,6 +11,8 @@ export default class Intro extends Phaser.Scene {
 
   create () {
 
+    const sonidoSeleccion = this.sound.add("seleccionMenu");
+
     this.cameras.main.setBackgroundColor('#ffffff');
 
     this.introduccion = this.add.sprite(400, 300, "animacionintro").setScale(0.95);
@@ -38,6 +40,7 @@ export default class Intro extends Phaser.Scene {
   
   botonJugar.on("pointerdown", () => {
       this.game.canvas.style.cursor = "default";
+      sonidoSeleccion.play();
       this.scene.start("etapa1inicio");
   });
 

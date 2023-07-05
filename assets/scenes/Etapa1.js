@@ -327,10 +327,12 @@ export default class Juego extends Phaser.Scene {
         enemigo.disableBody(true, true);
         console.log("Vida extra usada. Sigue jugando.");
       } else {
-       
         console.log("Game Over");
-        this.scene.start("fin", {puntaje: this.puntaje, tiempo: this.tiempo });
+        const overlay = this.add.rectangle(0, 0, this.game.config.width, this.game.config.height, 0x000000, 0.6);
+        overlay.setOrigin(0, 0);
         
+        this.scene.launch("fin", {puntaje: this.puntaje, tiempo: this.tiempo });
+        this.scene.pause();
       }
     }
   

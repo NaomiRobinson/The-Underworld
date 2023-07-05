@@ -59,6 +59,7 @@ export default class Juego extends Phaser.Scene {
   }
 
   create () {
+    this.sound.stopAll();
 
     this.fondo = this.add.tileSprite(400, 200, 800, 600, "fondo");
     this.fondo.setScrollFactor(0.5);
@@ -187,6 +188,11 @@ export default class Juego extends Phaser.Scene {
     musica.play();
     musica.setLoop(true);
 
+    
+
+
+    
+
 
 
   }
@@ -197,6 +203,8 @@ export default class Juego extends Phaser.Scene {
 
     if ((this.cursors.up.isDown || this.cursors.space.isDown) && this.jugador.body.touching.down && !tocarObjeto) {
       this.jugador.setVelocityY(-1470);
+      const sonidoSalto = this.sound.add("salto");
+      sonidoSalto.play();
     }
 
 
@@ -259,6 +267,8 @@ export default class Juego extends Phaser.Scene {
   }
 
     agregarObjeto() {
+
+    
       let objetoRandom = Phaser.Math.RND.pick(OBJETOS);
   
       if (objetoRandom === VIDAEXTRA && this.vidaExtra) {
@@ -296,12 +306,19 @@ export default class Juego extends Phaser.Scene {
     }
 
     recolectarObjeto(jugador, objeto) {
+
+      const sonidoObjeto = this.sound.add("juntarObjeto"); 
+      const sonidoPocion = this.sound.add("juntarPocion"); 
+
       objeto.disableBody(true, true);
   
       if (objeto.texture.key === VIDAEXTRA && !this.vidaExtra) {
         console.log("Objeto recolectado (vida extra)");
+        sonidoPocion.play();
         this.vidaExtra = true; 
         
+      }else {
+        sonidoObjeto.play();
       }
 
       const descObjeto = this.objetoRecolectado[objeto.texture.key];
@@ -322,15 +339,20 @@ export default class Juego extends Phaser.Scene {
     }
 
     restarVida(jugador, enemigo) {
-      
     
       if (this.vidaExtra) {
         this.vidaExtra = false;
         enemigo.disableBody(true, true);
         console.log("Vida extra usada. Sigue jugando.");
       } else {
+        
         console.log("Game Over");
-        this.scene.start("fin", {puntaje: this.puntaje, tiempo: this.tiempo });
+        const overlay = this.add.rectangle(0, 0, this.game.config.width, this.game.config.height, 0x000000, 0.6);
+        overlay.setOrigin(0, 0);
+        
+        this.scene.launch("fin", {puntaje: this.puntaje, tiempo: this.tiempo });
+        this.scene.pause();
+        
         
       }
     }
