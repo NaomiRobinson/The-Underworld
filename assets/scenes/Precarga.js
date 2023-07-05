@@ -26,23 +26,36 @@ export default class Precarga extends Phaser.Scene {
     this.load.image("ladrillos", "./assets/images/ladrillos.png");
     this.load.image("titulo", "./assets/images/titulo.png");
     this.load.image("botonAyuda", "./assets/images/ayuda.png");
-    this.load.image("recuadro", "./assets/images/recuadro.png");
+    this.load.image("pergamino", "./assets/images/pergamino.png");
+    this.load.image("puntos", "./assets/images/puntos.png");
+    this.load.image("x", "./assets/images/x.png");
+    this.load.image("total", "./assets/images/total.png");
+    this.load.image("tiempo", "./assets/images/tiempo.png");
+    this.load.image("superorecord", "./assets/images/superaste.png");
+    this.load.image("record", "./assets/images/record.png");
+    this.load.image("raya", "./assets/images/raya.png");
+    this.load.image("felicidades", "./assets/images/felicidades.png");
+    this.load.image("juegadenuevo", "./assets/images/juegadenuevo.png");
+
     
     this.load.image("plataforma", "./assets/images/plataforma.png");
     this.load.image("jugador", "./assets/images/jugador.png");
     
-    
-   
-
     this.load.image("botonreplay", "./assets/images/replay.png");
     this.load.image("botonmenu", "./assets/images/menu.png");
 
     
 
-    this.load.spritesheet("personaje", "./assets/images/prueba.png", {
+    this.load.spritesheet("personaje", "./assets/images/personaje.png", {
       frameWidth: 177,
       frameHeight: 240,
     });
+
+    this.load.spritesheet("personajellorando", "./assets/images/personajellorando.png", {
+      frameWidth: 172,
+      frameHeight: 240,
+    });
+
 
     this.load.spritesheet("fantasma", "./assets/images/fantasma.png", {
       frameWidth: 140,
@@ -110,6 +123,13 @@ export default class Precarga extends Phaser.Scene {
     }); 
 
     this.anims.create({
+      key: "llanto",
+      frames: this.anims.generateFrameNumbers("personajellorando", { start: 0, end: 5}),
+      frameRate: 15,
+      repeat: -1, 
+    }); 
+
+    this.anims.create({
       key: "animFantasma",
       frames: this.anims.generateFrameNumbers("fantasma", { start: 0, end: 5 }),
       frameRate: 5,
@@ -173,6 +193,7 @@ export default class Precarga extends Phaser.Scene {
       repeat: -1, 
     })
 
+
     this.anims.create({
       key: "animacion",
       frames: this.anims.generateFrameNumbers("animacionintro", { start: 0, end: 3 }),
@@ -182,7 +203,7 @@ export default class Precarga extends Phaser.Scene {
 
     
 
-    this.scene.start("menu");
+    this.scene.start("fin");
 
   }
 }

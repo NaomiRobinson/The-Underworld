@@ -301,8 +301,9 @@ export default class Juego extends Phaser.Scene {
       const overlay = this.add.rectangle(0, 0, this.game.config.width, this.game.config.height, 0x000000, 0.6);
       overlay.setOrigin(0, 0);
       
-      this.scene.launch("fin", {puntaje: this.puntaje, tiempo: this.tiempo });
       this.scene.pause();
+      this.scene.launch("fin", {puntaje: this.puntaje, tiempo: this.tiempo });
+      
       
     }
   }
