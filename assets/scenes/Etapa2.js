@@ -133,7 +133,7 @@ export default class Juego extends Phaser.Scene {
       loop: true,
     });
 
-    this.add.image(70,60, "interfaz").setScale(0.2);
+    this.add.image(70,60, "interfaz").setScale(0.16);
     this.add.image(30,70, "reloj").setScale(0.7);
     this.interfazVidaExtras();
 
@@ -201,7 +201,7 @@ export default class Juego extends Phaser.Scene {
 
     this.grupoObstaculos.add(obstaculo);
     //obstaculo.value = 1;
-    
+    this.physics.world.gravity.y= (this.physics.world.gravity.y * this.dificultad);
     console.log("obstacle is added", randomX, obstaculoRandom);
     this.physics.add.collider(
       this.plataforma,
@@ -242,6 +242,7 @@ export default class Juego extends Phaser.Scene {
         objetoRandom = objeto.nombre;
         break;
       }
+
     }
 
 

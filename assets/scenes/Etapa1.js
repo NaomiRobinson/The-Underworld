@@ -166,7 +166,7 @@ export default class Juego extends Phaser.Scene {
       loop: true,
     });
 
-    this.add.image(70,60, "interfaz").setScale(0.2);
+    this.add.image(70,60, "interfaz").setScale(0.16);
     this.add.image(30,70, "reloj").setScale(0.7);
     this.interfazVidaExtras();
 
