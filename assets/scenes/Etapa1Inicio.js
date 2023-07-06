@@ -20,7 +20,6 @@ export default class Juego extends Phaser.Scene {
     constructor() {
       super("etapa1inicio");
   
-      
     }
 
   
@@ -29,10 +28,10 @@ export default class Juego extends Phaser.Scene {
       this.objetoRecolectado = {
         [MONEDA]: { prob: 0.9, score: 50 },
         [GEMA]: { prob: 0.1, score: 200 },
-        [CORONA]: { prob: 0.05, score: 250 },
+        [CORONA]: { prob: 0.01, score: 250 },
         [ANILLO]: { prob: 0.3, score: 150 },
         [CALIZ]: { prob: 0.6, score: 100 },
-        [VIDAEXTRA]: { prob: 0.05, score: 0 },
+        [VIDAEXTRA]: { prob: 0.01, score: 0 },
       };
 
       this.tiempoPantalla = 0;
@@ -40,23 +39,13 @@ export default class Juego extends Phaser.Scene {
       this.dificultad = 1;
       this.tiempo = 0;
       this.puntaje = 0;
-      this.tiempoPantalla = 0;
       this.ultimoEnemigo = 0;
 
       this.recordPuntaje = localStorage.getItem('recordPuntaje') || 0;
-    
       
     }
 
-  
-
-  preload () {
-    
-    this.load.image(OJO, "./assets/images/ojo.png");
-    this.load.image(FANTASMA, "./assets/images/fantasma.png");
-    this.load.image(MONEDA, "./assets/images/moneda.png");
-
-  }
+  preload () {}
 
   create () {
     this.sound.stopAll();
@@ -82,24 +71,12 @@ export default class Juego extends Phaser.Scene {
     this.piedras1.setTilePosition(400, 600);
 
     this.plataforma = this.physics.add.staticSprite(400, 650, "plataforma").setScale(1);
-    this.plataforma.setScrollFactor(0.5);
 
     this.jugador = this.physics.add.sprite(200, 300, "personaje").setScale(0.7);
-    
-
     this.jugador.body.setSize(150, 219);  
-
-  
     this.jugador.play("correr");  
 
-    // this.plataforma = this.add.tileSprite(400, 800, this.game.config.width, this.game.config.height, "plataforma");
-    // this.plataforma.setScrollFactor(0.5);
-    // this.plataforma.setTileScale(1);
-    // this.plataforma.setTilePosition(400, 600);
-
-
     this.physics.add.collider(this.jugador, this.plataforma);
-
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -108,9 +85,7 @@ export default class Juego extends Phaser.Scene {
 
  
 
-    this.physics.add.collider(this.grupoObjetos, this.plataforma);
     this.physics.add.collider(this.grupoEnemigos, this.plataforma);
-
 
     this.physics.add.overlap(
       this.jugador,
@@ -165,21 +140,20 @@ export default class Juego extends Phaser.Scene {
     });
 
     this.add.image(70,60, "interfaz").setScale(0.16);
-    this.add.image(30,70, "reloj").setScale(0.7);
+    this.add.image(33,74, "reloj").setScale(0.5);
 
     this.interfazVidaExtras();
+  
     
-
-
-    this.textoPuntaje = this.add.text(26, 30, this.puntaje, {
-      fontSize: "20px",
-      fill: "#FFFFFF",
-      fontStyle: "bold",
+    this.textoPuntaje = this.add.text(24, 34, this.puntaje, {
+      fontSize: "25px",
+      fill: "#781508",
+      fontStyle: "bold",  
     });
 
-    this.textoTiempo = this.add.text(50,60, this.tiempo, {
+    this.textoTiempo = this.add.text(50,64, this.tiempo, {
       fontSize: "20px",
-      fill: "#E6DE35",
+      fill: "#781508",
       fontStyle: "bold",
     });
 
@@ -205,7 +179,6 @@ export default class Juego extends Phaser.Scene {
       sonidoSalto.play();
     }
 
-
     if (this.tiempoPantalla >= 20) {
       this.scene.start("etapa2", { tiempo: this.tiempo, puntaje: this.puntaje, dificultad: this.dificultad, vidaExtra: this.vidaExtra });
     }
@@ -214,7 +187,6 @@ export default class Juego extends Phaser.Scene {
     this.piedras3.tilePositionX += 0.4;
     this.piedras2.tilePositionX += 0.7;
     this.piedras1.tilePositionX += 1;
-
 
   }
 
@@ -228,9 +200,7 @@ export default class Juego extends Phaser.Scene {
 
   const animacion = ENEMIGOS_ANIM[enemigoRandom];
   enemigo.play(animacion);
-
   enemigo.body.setSize(115, 105);  
-
 
   const distancia = 600;
 
@@ -274,13 +244,11 @@ export default class Juego extends Phaser.Scene {
           OBJETOS.filter((objeto) => objeto !== VIDAEXTRA)
         );
       }
-  
       const randomY = Phaser.Math.RND.between(100, 450);
 
       const probTotal = OBJETOS.reduce((total, objeto) => total + objeto.probabilidad, 0);
       const numRandom = Phaser.Math.RND.frac() * probTotal;  //número aleatorio entre 0 y el peso total utilizando 
 
-      
       let acum = 0;
 
       for (const objeto of OBJETOS) {
@@ -351,11 +319,8 @@ export default class Juego extends Phaser.Scene {
         console.log("Game Over");
         const overlay = this.add.rectangle(0, 0, this.game.config.width, this.game.config.height, 0x000000, 0.6);
         overlay.setOrigin(0, 0);
-        
         this.scene.launch("fin", {puntaje: this.puntaje, tiempo: this.tiempo });
         this.scene.pause();
-        
-        
       }
     }
   

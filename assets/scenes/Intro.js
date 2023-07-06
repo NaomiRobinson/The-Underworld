@@ -5,23 +5,19 @@ export default class Intro extends Phaser.Scene {
   }
 
   init() {
-    this.imagenes = ['img1', 'img2', 'img3']; // Nombres de las tres imágenes
+    this.imagenes = ['img1', 'img2', 'img3']; 
     this.imagenesGrupo;
   }
 
-  preload () {
-    
-  }
+  preload () {}
 
   create () {
 
     this.fondo = this.add.tileSprite(400, 300, 800, 600, "ladrillos");
-    this.fondo.setScrollFactor(0.5);
     this.fondo.setTileScale(0.9); 
     this.fondo.setTilePosition(400, 300);
 
     this.add.image(400,300, "fondomenu").setScale(1);
-
 
     this.imagenesGrupo = this.add.group();
     const posX = [260, 260, 550]; 
@@ -33,21 +29,19 @@ export default class Intro extends Phaser.Scene {
 
       this.tweens.add({
         targets: imagen,
-        alpha: 1, // Establecer la transparencia final en 1
-        duration: 500, // Duración de la transición en milisegundos
-        ease: 'Linear', // Tipo de interpolación
-        delay: i * 1000, // Retraso en la aparición de cada imagen en milisegundos
+        alpha: 1, 
+        duration: 500, 
+        ease: 'Linear', 
+        delay: i * 1000, 
       });
 
       this.imagenesGrupo.add(imagen);
     }
 
-
     const sonidoSeleccion = this.sound.add("seleccionMenu");
 
 
     this.botonJugar = this.add.sprite(700, 530, 'flecha').setScale(1.3).setInteractive();
-
     this.botonVolver = this.add.sprite(90,90, 'flecha').setScale(1.3).setInteractive();
     this.botonVolver.flipX = true;
     

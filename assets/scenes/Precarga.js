@@ -222,11 +222,6 @@ export default class Precarga extends Phaser.Scene {
       repeat: -1, 
     })
 
-    
-   
-
-    
-
     this.scene.start("menu");
 
   }

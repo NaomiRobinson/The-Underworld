@@ -168,18 +168,18 @@ export default class Juego extends Phaser.Scene {
     });
 
     this.add.image(70,60, "interfaz").setScale(0.16);
-    this.add.image(30,70, "reloj").setScale(0.7);
+    this.add.image(33,74, "reloj").setScale(0.5);
     this.interfazVidaExtras();
 
-    this.textoPuntaje = this.add.text(26, 30, this.puntaje, {
-      fontSize: "20px",
-      fill: "#FFFFFF",
+    this.textoPuntaje = this.add.text(24, 34, this.puntaje, {
+      fontSize: "25px",
+      fill: "#781508",
       fontStyle: "bold",
     });
 
-    this.textoTiempo = this.add.text(50,60, this.tiempo, {
+    this.textoTiempo = this.add.text(50,64, this.tiempo, {
       fontSize: "20px",
-      fill: "#E6DE35",
+      fill: "#781508",
       fontStyle: "bold",
     });
 
@@ -234,7 +234,6 @@ export default class Juego extends Phaser.Scene {
   const tiempoAparicion = this.ultimoEnemigo + Phaser.Math.RND.between(distancia, distancia * 2);
 
   //this.aumentarDificultad();
-
 
   this.time.addEvent({
     delay: tiempoAparicion,

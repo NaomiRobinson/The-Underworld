@@ -4,9 +4,7 @@
       super("menu");
     }
 
-  preload() {
-
-  }
+  preload() {}
 
   create() {
 
@@ -17,27 +15,12 @@
     musicaMenu.setLoop(true);
 
     const sonidoSeleccion = this.sound.add("seleccionMenu");
-    
-    
 
-    // this.add.image(400, 300, "fondo");
-    // this.add.image(400,300, "ladrillos");
-    // this.add.image(400,300, "pelo");
-    
-
- this.fondo = this.add.tileSprite(400, 300, 800, 600, "ladrillos");
-    this.fondo.setScrollFactor(0.5);
+    this.fondo = this.add.tileSprite(400, 300, 800, 600, "ladrillos");
     this.fondo.setTileScale(0.9); 
     this.fondo.setTilePosition(400, 300);
 
-
-
-    
-    
-    
-
     const botonJugar = this.add.image(400, 300, "titulo").setScale(1).setInteractive();
-
     const botonAyuda = this.add.sprite(750, 50, "botonAyuda").setScale(1).setInteractive();
 
     
