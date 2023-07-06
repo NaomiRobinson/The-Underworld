@@ -227,7 +227,7 @@ export default class Precarga extends Phaser.Scene {
 
     
 
-    this.scene.start("etapa2");
+    this.scene.start("menu");
 
   }
 }
