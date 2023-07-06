@@ -57,11 +57,11 @@ export default class Fin extends Phaser.Scene {
     const recordPuntajeTotal = localStorage.getItem('recordPuntajeTotal') || 0;
     
 
-    this.add.text(430, 160, `${this.puntaje}`, { fontSize: "32px", fill: "#000000", fontStyle: "bold" });
-    this.add.text(430, 210, `${this.tiempo} `, { fontSize: "32px", fill: "#000000", fontStyle: "bold"});
-    this.add.text(430, 280, `${puntajeTotal}`, { fontSize: "32px", fill: "#000000", fontStyle: "bold" });
+    this.add.text(430, 160, `${this.puntaje}`, { fontSize: "32px", fill: "#742C1E", fontStyle: "bold" });
+    this.add.text(430, 210, `${this.tiempo} `, { fontSize: "32px", fill: "#742C1E", fontStyle: "bold"});
+    this.add.text(430, 280, `${puntajeTotal}`, { fontSize: "32px", fill: "#742C1E", fontStyle: "bold" });
   
-    this.add.text(430, 330, `${recordPuntajeTotal}`, { fontSize: "32px", fill: "#000000", fontStyle: "bold" });
+    this.add.text(430, 330, `${recordPuntajeTotal}`, { fontSize: "32px", fill: "#742C1E", fontStyle: "bold" });
 
     if (puntajeTotal >= recordPuntajeTotal) {
 
@@ -72,19 +72,23 @@ export default class Fin extends Phaser.Scene {
       
     };
 
-    const botonJugar = this.add.image(170, 470, 'botonreplay').setScale(0.5).setInteractive();
-    const botonMenu = this.add.image(310, 470,  'botonmenu').setScale(0.5).setInteractive();
+    
+
+    this.botonJugar = this.add.sprite(130, 470, 'replay').setScale(1).setInteractive();
+    this.botonMenu = this.add.sprite(220, 470,  'menu').setScale(1).setInteractive();
 
 
-    botonJugar.on("pointerover", () => {
+    this.botonJugar.on("pointerover", () => {
         this.game.canvas.style.cursor = "pointer"
+        this.botonJugar.setFrame(1); 
     });
   
-    botonJugar.on("pointerout", () => {
-        this.game.canvas.style.cursor = "default";
-    });
+    this.botonJugar.on("pointerout", () => {
+      this.game.canvas.style.cursor = "default";
+      this.botonJugar.setFrame(0); 
+  });
     
-    botonJugar.on("pointerdown", () => {
+    this.botonJugar.on("pointerdown", () => {
       this.game.canvas.style.cursor = "default";
     // if (etapa2Scene) {
     //   etapa1Scene.data.destroy();
@@ -102,15 +106,19 @@ export default class Fin extends Phaser.Scene {
   });
 
   
-    botonMenu.on("pointerover", () => {
+    this.botonMenu.on("pointerover", () => {
       this.game.canvas.style.cursor = "pointer"
+      this.botonMenu.setFrame(1); 
+      
     });
   
-    botonMenu.on("pointerout", () => {
+    this.botonMenu.on("pointerout", () => {
       this.game.canvas.style.cursor = "default";
+      this.botonMenu.setFrame(0); 
+      
     });
   
-    botonMenu.on("pointerdown", () => {
+    this.botonMenu.on("pointerdown", () => {
       this.game.canvas.style.cursor = "default";
       sonidoSeleccion.play();
       this.scene.stop("etapa2");

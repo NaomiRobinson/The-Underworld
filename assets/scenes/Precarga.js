@@ -17,15 +17,19 @@ export default class Precarga extends Phaser.Scene {
 
     this.load.image("fondo", "./assets/images/fondo.png");
     this.load.image("fondoayuda", "./assets/images/fondoayuda.png");
+    this.load.image("fondomenu", "./assets/images/fondomenu.png");
     this.load.image("capa1", "./assets/images/capa1.png");
     this.load.image("capa2", "./assets/images/capa2.png");
     this.load.image("capa3", "./assets/images/capa3.png");
-    this.load.image("volveratras", "./assets/images/volveratras.png");
+    
     this.load.image("botonPlay", "./assets/images/play.png");
-    this.load.image("pelo", "./assets/images/chica.png");
+    
     this.load.image("ladrillos", "./assets/images/ladrillos.png");
-    this.load.image("titulo", "./assets/images/titulo.png");
-    this.load.image("botonAyuda", "./assets/images/ayuda.png");
+    this.load.image("pergaminomenu", "./assets/images/ver.png");
+
+    this.load.image("interfaz", "./assets/images/interfaz.png");
+    
+    
     this.load.image("pergamino", "./assets/images/pergamino.png");
     this.load.image("puntos", "./assets/images/puntos.png");
     this.load.image("x", "./assets/images/x.png");
@@ -37,14 +41,42 @@ export default class Precarga extends Phaser.Scene {
     this.load.image("felicidades", "./assets/images/felicidades.png");
     this.load.image("juegadenuevo", "./assets/images/juegadenuevo.png");
 
-    
+    this.load.image("img1", "./assets/images/anim1.png");
+    this.load.image("img2", "./assets/images/anim2.png");
+    this.load.image("img3", "./assets/images/anim3.png");
+
+    this.load.image("reloj", "./assets/images/reloj.png");
+
     this.load.image("plataforma", "./assets/images/plataforma.png");
     this.load.image("jugador", "./assets/images/jugador.png");
-    
-    this.load.image("botonreplay", "./assets/images/replay.png");
-    this.load.image("botonmenu", "./assets/images/menu.png");
 
+    this.load.image("frascovacio", "./assets/images/sinvidaextra.png");
+
+    this.load.spritesheet("titulo", "./assets/images/titulo.png", {
+      frameWidth: 743,
+      frameHeight: 366,
+    });
     
+    
+    this.load.spritesheet("flecha", "./assets/images/flecha.png", {
+      frameWidth: 64,
+      frameHeight: 64,
+    });
+
+    this.load.spritesheet("menu", "./assets/images/menu.png", {
+      frameWidth: 74,
+      frameHeight: 72,
+    });
+
+    this.load.spritesheet("replay", "./assets/images/replay.png", {
+      frameWidth: 74,
+      frameHeight: 72,
+    });
+
+    this.load.spritesheet("botonAyuda", "./assets/images/ayuda.png", {
+      frameWidth: 78,
+      frameHeight: 74,
+    });
 
     this.load.spritesheet("personaje", "./assets/images/personaje.png", {
       frameWidth: 177,
@@ -97,11 +129,6 @@ export default class Precarga extends Phaser.Scene {
     });
 
 
-
-    this.load.spritesheet("animacionintro", "./assets/images/animacionintro.png", {
-      frameWidth: 800,
-      frameHeight: 600,
-    });
   }
 
   create() {
@@ -193,17 +220,12 @@ export default class Precarga extends Phaser.Scene {
       repeat: -1, 
     })
 
-
-    this.anims.create({
-      key: "animacion",
-      frames: this.anims.generateFrameNumbers("animacionintro", { start: 0, end: 3 }),
-      frameRate: 100,
-      repeat: 0, 
-    }); 
+    
+   
 
     
 
-    this.scene.start("fin");
+    this.scene.start("menu");
 
   }
 }

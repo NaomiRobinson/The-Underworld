@@ -106,7 +106,6 @@ export default class Juego extends Phaser.Scene {
     this.grupoObjetos = this.physics.add.group();
     this.grupoEnemigos = this.physics.add.group();
 
-
  
 
     this.physics.add.collider(this.grupoObjetos, this.plataforma);
@@ -165,15 +164,20 @@ export default class Juego extends Phaser.Scene {
       loop: true,
     });
 
+    this.add.image(70,60, "interfaz").setScale(0.2);
+    this.add.image(30,70, "reloj").setScale(0.7);
+
+    this.interfazVidaExtras();
+    
 
 
-    this.textoPuntaje = this.add.text(16, 40, "Puntaje:" + this.puntaje, {
+    this.textoPuntaje = this.add.text(26, 30, this.puntaje, {
       fontSize: "20px",
       fill: "#FFFFFF",
       fontStyle: "bold",
     });
 
-    this.textoTiempo = this.add.text(26,60, this.tiempo, {
+    this.textoTiempo = this.add.text(50,60, this.tiempo, {
       fontSize: "20px",
       fill: "#E6DE35",
       fontStyle: "bold",
@@ -187,12 +191,6 @@ export default class Juego extends Phaser.Scene {
     const musica = this.sound.add("musicaFondo");
     musica.play();
     musica.setLoop(true);
-
-    
-
-
-    
-
 
 
   }
@@ -316,6 +314,7 @@ export default class Juego extends Phaser.Scene {
         console.log("Objeto recolectado (vida extra)");
         sonidoPocion.play();
         this.vidaExtra = true; 
+        this.interfazVidaExtras();
         
       }else {
         sonidoObjeto.play();
@@ -325,7 +324,7 @@ export default class Juego extends Phaser.Scene {
       if (descObjeto) {
         console.log("Objeto recolectado");
         this.puntaje += descObjeto.score;
-        this.textoPuntaje.setText("Puntaje: " + this.puntaje);
+        this.textoPuntaje.setText(this.puntaje);
       }
 
       const puntajeTotal = this.puntaje * this.tiempo;
@@ -344,6 +343,7 @@ export default class Juego extends Phaser.Scene {
         this.vidaExtra = false;
         enemigo.disableBody(true, true);
         console.log("Vida extra usada. Sigue jugando.");
+        this.interfazVidaExtras();
       } else {
         
         console.log("Game Over");
@@ -372,6 +372,24 @@ export default class Juego extends Phaser.Scene {
     console.log("dificultad aumentada");
     }
 
+    interfazVidaExtras() {
+      this.frascoVacio = true;
+      this.frascoLleno = false;
     
-  }
+      if (this.vidaExtra) {
+        this.frascoVacio = false;
+        this.frascoLleno = true;
+      } else {
+        this.frascoLleno = false;
+        this.frascoVacio = true;
+      }
+    
+      if (this.frascoVacio) {
+        this.add.image(126, 64, "frascovacio").setScale(0.7);
+      }
+      if (this.frascoLleno) {
+        this.add.sprite(126, 64, "vidaExtra").setScale(1);
+      }
+    }
+}
   

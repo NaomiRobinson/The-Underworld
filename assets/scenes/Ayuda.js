@@ -10,20 +10,30 @@ export default class Ayuda extends Phaser.Scene {
 
     create () {
 
+    this.fondo = this.add.tileSprite(400, 300, 800, 600, "ladrillos");
+    this.fondo.setScrollFactor(0.5);
+    this.fondo.setTileScale(0.9); 
+    this.fondo.setTilePosition(400, 300);
+
+    this.add.image(400,300, "fondoayuda").setScale(0.8);
+
       const sonidoSeleccion = this.sound.add("seleccionMenu");
 
-      this.add.image(400,300, "fondoayuda").setScale(0.65);
-      const botonAtras = this.add.image(60 , 50, 'volveratras').setScale(0.6).setInteractive();
+      
+      this.botonVolver = this.add.sprite(90,90, 'flecha').setScale(1.3).setInteractive();
+      this.botonVolver.flipX = true;
 
-      botonAtras.on("pointerover", () => {
+      this.botonVolver.on("pointerover", () => {
         this.game.canvas.style.cursor = "pointer"
+        this.botonVolver.setFrame(1); 
     });
     
-    botonAtras.on("pointerout", () => {
+    this.botonVolver.on("pointerout", () => {
         this.game.canvas.style.cursor = "default";
+        this.botonVolver.setFrame(0); 
     });
     
-    botonAtras.on("pointerdown", () => {
+    this.botonVolver.on("pointerdown", () => {
         this.game.canvas.style.cursor = "default";
         sonidoSeleccion.play();
         this.scene.start("menu");
@@ -31,6 +41,8 @@ export default class Ayuda extends Phaser.Scene {
 
     }
 
-    update () {}
+    update() {
+      this.fondo.tilePositionX += 0.2;
+    }
 
 }
