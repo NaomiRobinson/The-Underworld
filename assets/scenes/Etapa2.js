@@ -21,12 +21,12 @@ export default class Juego extends Phaser.Scene {
 
   init(data) {
     this.objetoRecolectado = {
-      [MONEDA]: { prob: 0.8, score: 50 },
-      [GEMA]: { prob: 0.5, score: 200 },
-      [CORONA]: { prob: 0.1, score: 250 },
+      [MONEDA]: { prob: 0.9, score: 50 },
+      [GEMA]: { prob: 0.1, score: 200 },
+      [CORONA]: { prob: 0.05, score: 250 },
       [ANILLO]: { prob: 0.3, score: 150 },
       [CALIZ]: { prob: 0.6, score: 100 },
-      [VIDAEXTRA]: { prob: 0.3, score: 0 },
+      [VIDAEXTRA]: { prob: 0.05, score: 0 },
     };
 
         this.tiempoPantalla = 0;
@@ -34,12 +34,14 @@ export default class Juego extends Phaser.Scene {
         this.dificultad = 1;
         this.tiempo = 0;
         this.puntaje = 0;
+        this.dificultad2 = 1;
 
     if (data && this.scene.key !== "etapa1") {
       this.vidaExtra = data.vidaExtra || this.vidaExtra;
       this.dificultad = data.dificultad || this.dificultad;
       this.tiempo = data.tiempo || this.tiempo;
       this.puntaje = data.puntaje || this.puntaje;
+      this.dificultad2= data.dificultad2 || this.dificultad2;
     }
 
     this.recordPuntaje = localStorage.getItem('recordPuntaje') || 0;
@@ -105,8 +107,8 @@ export default class Juego extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay: OBSTACULOS_DELAY,
-      callback: this.agregarObstaculo,
+      delay: OBSTACULOS_DELAY - this.dificultad2,
+      callback: this.agregarObstaculo ,
       callbackScope: this,
       loop: true,
     });
@@ -162,7 +164,9 @@ export default class Juego extends Phaser.Scene {
       (this.cursors.up.isDown || this.cursors.space.isDown) &&
       this.jugador.body.touching.down
     ) {
-      this.jugador.setVelocityY(-1200);
+      this.jugador.setVelocityY(-1150);
+      const sonidoSalto = this.sound.add("salto");
+      sonidoSalto.play();
     }
     
     if (this.cursors.left.isDown) {
@@ -181,7 +185,7 @@ export default class Juego extends Phaser.Scene {
     }
 
     if (this.tiempoPantalla >= 10) {
-      this.scene.start("etapa1", { tiempo: this.tiempo, puntaje: this.puntaje, dificultad: this.dificultad, vidaExtra: this.vidaExtra });
+      this.scene.start("etapa1", { tiempo: this.tiempo, puntaje: this.puntaje, dificultad: this.dificultad,dificultad2: this.dificultad2, vidaExtra: this.vidaExtra });
     }
 
     
@@ -201,7 +205,7 @@ export default class Juego extends Phaser.Scene {
 
     this.grupoObstaculos.add(obstaculo);
     //obstaculo.value = 1;
-    this.physics.world.gravity.y= (this.physics.world.gravity.y * this.dificultad);
+    this.physics.world.gravity.y= (this.physics.world.gravity.y);
     console.log("obstacle is added", randomX, obstaculoRandom);
     this.physics.add.collider(
       this.plataforma,
@@ -301,8 +305,10 @@ export default class Juego extends Phaser.Scene {
       enemigo.disableBody(true, true);
       console.log("Vida extra usada. Sigue jugando.");
       this.interfazVidaExtras();
-    } else {
-      
+      const perdervidaextra = this.sound.add("choque");
+        perdervidaextra.play();
+      } else {
+        
       console.log("Game Over");
       const overlay = this.add.rectangle(0, 0, this.game.config.width, this.game.config.height, 0x000000, 0.6);
       overlay.setOrigin(0, 0);
@@ -325,7 +331,7 @@ export default class Juego extends Phaser.Scene {
   }
 
   aumentarDificultad() {
-    this.dificultad += 0.005;  
+    this.dificultad2 += 0.001;  
   console.log("dificultad aumentada");
   }
 
@@ -342,10 +348,10 @@ export default class Juego extends Phaser.Scene {
     }
   
     if (this.frascoVacio) {
-      this.add.image(126, 64, "frascovacio").setScale(0.7);
+      this.add.image(110, 64, "frascovacio").setScale(0.7);
     }
     if (this.frascoLleno) {
-      this.add.sprite(126, 64, "vidaExtra").setScale(1);
+      this.add.sprite(110, 64, "vidaExtra").setScale(1);
     }
   }
 

@@ -27,12 +27,12 @@ export default class Juego extends Phaser.Scene {
     init() {
 
       this.objetoRecolectado = {
-        [MONEDA]: { prob: 0.8, score: 50 },
-        [GEMA]: { prob: 0.5, score: 200 },
-        [CORONA]: { prob: 0.1, score: 250 },
+        [MONEDA]: { prob: 0.9, score: 50 },
+        [GEMA]: { prob: 0.1, score: 200 },
+        [CORONA]: { prob: 0.05, score: 250 },
         [ANILLO]: { prob: 0.3, score: 150 },
         [CALIZ]: { prob: 0.6, score: 100 },
-        [VIDAEXTRA]: { prob: 0.3, score: 0 },
+        [VIDAEXTRA]: { prob: 0.05, score: 0 },
       };
 
       this.tiempoPantalla = 0;
@@ -344,6 +344,8 @@ export default class Juego extends Phaser.Scene {
         enemigo.disableBody(true, true);
         console.log("Vida extra usada. Sigue jugando.");
         this.interfazVidaExtras();
+        const perdervidaextra = this.sound.add("choque");
+        perdervidaextra.play();
       } else {
         
         console.log("Game Over");

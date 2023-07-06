@@ -8,7 +8,7 @@ Link del TDD: https://drive.google.com/file/d/1qImNdPCdRuDg25w8E-cSCTknNkk97Dq-/
 
 ![Captura del menu principal](assets/images/capturamenu.png)
 
-![Captura de la escena de ayuda](assets/images/fondoayuda.png)
+![Captura de la escena de ayuda](assets/images/capturaayuda.png)
 
 ![Captura de la primera etapa del juego](assets/images/capturaetapa1.png)
 
