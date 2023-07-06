@@ -316,7 +316,6 @@ export default class Juego extends Phaser.Scene {
       this.scene.pause();
       this.scene.launch("fin", {puntaje: this.puntaje, tiempo: this.tiempo });
       
-      
     }
   }
 

@@ -66,13 +66,10 @@ export default class Fin extends Phaser.Scene {
     if (puntajeTotal >= recordPuntajeTotal) {
 
       this.add.image(430, 60, "felicidades").setScale(0.5);
-      this.add.image(468, 60, "superorecord").setScale(0.5);
+      this.add.image(468, 110, "superorecord").setScale(0.5);
     } else {
       this.add.image(420, 80, "juegadenuevo").setScale(0.5);
-      
     };
-
-    
 
     this.botonJugar = this.add.sprite(130, 470, 'replay').setScale(1).setInteractive();
     this.botonMenu = this.add.sprite(220, 470,  'menu').setScale(1).setInteractive();
@@ -90,12 +87,7 @@ export default class Fin extends Phaser.Scene {
     
     this.botonJugar.on("pointerdown", () => {
       this.game.canvas.style.cursor = "default";
-    // if (etapa2Scene) {
-    //   etapa1Scene.data.destroy();
-    // }
-    // if (etapa1Scene) {
-    //   etapa1Scene.data.destroy();
-    // }
+    
     sonidoSeleccion.play();
     
     this.scene.stop("etapa2");
